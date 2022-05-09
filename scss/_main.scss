@@ -1,0 +1,291 @@
+
+*, *::after, *::before {
+  box-sizing: border-box;
+  // outline: 1px solid #000;
+}
+
+body {
+  font-family: 'Expletus Sans', 'Noto Sans TC', 'Bree Serif', serif;
+  color: $color_text;
+}
+
+img {
+  object-fit: cover;
+}
+
+h1 {
+  font-family: 'Nova Round', 'Noto Sans TC', cursive;
+  color: $color_text;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container {
+  margin: 16px 0;
+}
+
+// logo
+.logo {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  padding: 30px;
+  padding-top: 70px;
+  margin-left: 10px;
+  font-family: 'Expletus Sans', cursive;
+  text-decoration: none;
+  color: $color_text;
+  transform: rotate(-10deg);
+  text-align: center;
+  &:hover {
+    color: $color_text;
+  }
+  h1 {
+    border-top: 2px solid $color_primary;
+    margin-bottom: -5px;
+    word-spacing: 5px;
+    letter-spacing: 3px;
+    &::before {
+      position: absolute;
+      left: 3rem;
+      top: 0rem;
+      z-index: -1;
+      content: '\f111';
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: 4em;
+      color: $color_primary;
+    }
+  }
+  h2 {
+    border-bottom: 2px solid $color_primary;
+    font-size: 12px;
+    &::after {
+      position: absolute;
+      z-index: -1;
+      content: '\f111';
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: 5em;
+      top: 6.5rem;
+    }
+  }
+}
+
+// nav bar
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0;
+  ul {
+    display: flex;
+    i {
+      margin-right: 10px;
+      color: $color_text;
+    }
+    a {
+      display: inline-block;
+      padding: 24px 48px;
+      text-decoration: none;
+      color: $color_text;
+      border-top: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      font-size: 24px;
+      height: 200px;
+      padding-top: calc(100px - 24px);
+      &:hover {
+        border-top: 3px solid $color_primary;
+        border-bottom: 3px solid $color_primary;
+        transition: all $duration linear;
+      }
+    }
+  }
+}
+
+// css animation
+.css_animation {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    justify-content: center;
+  }
+  li {
+    /* the important bits */
+    perspective: 600px;
+
+    position: relative;
+    width: 300px;
+    height: 300px;
+    padding: 0;
+    a {
+      display: inline-block;
+      vertical-align: top;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .normal {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .info {
+    // hide-initial-state
+    transform: rotate3d(1,0,0, 90deg);
+    
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 4px;
+    pointer-events: none;
+    background-color: rgba($color_primary, 0.5);
+    h3 {
+      position: absolute;
+      font-size: 3rem;
+      top: 50%;
+      left: 50%;
+      color: $color_text;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+
+.in-top .info {
+   transform-origin: 50% 0%;
+   animation: in-top $duration $timing-fn 0ms 1 forwards;
+}
+.in-right .info {
+  transform-origin: 100% 0%;
+  animation: in-right $duration $timing-fn 0ms 1 forwards;
+}
+.in-bottom .info {
+  transform-origin: 50% 100%;
+  animation: in-bottom $duration $timing-fn 0ms 1 forwards;
+}
+.in-left .info {
+  transform-origin: 0% 0%;
+  animation: in-left $duration $timing-fn 0ms 1 forwards;
+}
+
+.out-top .info {
+  transform-origin: 50% 0%;
+  animation: out-top $duration $timing-fn 0ms 1 forwards;
+}
+.out-right .info {
+  transform-origin: 100% 50%;
+  animation: out-right $duration $timing-fn 0ms 1 forwards;
+}
+.out-bottom .info {
+  transform-origin: 50% 100%;
+  animation: out-bottom $duration $timing-fn 0ms 1 forwards;
+}
+.out-left .info {
+  transform-origin: 0% 0%;
+  animation: out-left $duration $timing-fn 0ms 1 forwards;
+}
+
+@keyframes in-top {
+  from {transform: rotate3d(-1,0,0, 90deg)}
+  to   {transform: rotate3d(0,0,0, 0deg)}}
+@keyframes in-right {
+  from {transform: rotate3d(0,-1,0, 90deg)}
+  to   {transform: rotate3d(0,0,0, 0deg)}}
+@keyframes in-bottom {
+  from {transform: rotate3d(1,0,0, 90deg)}
+  to   {transform: rotate3d(0,0,0, 0deg)}}
+@keyframes in-left {
+  from {transform: rotate3d(0,1,0, 90deg)}
+  to   {transform: rotate3d(0,0,0, 0deg)}}
+
+@keyframes out-top {
+  from {transform: rotate3d(0,0,0, 0deg)}
+  to   {transform: rotate3d(-1,0,0, 104deg)}}
+@keyframes out-right {
+  from {transform: rotate3d(0,0,0, 0deg)}
+  to   {transform: rotate3d(0,-1,0, 104deg)}}
+@keyframes out-bottom {
+  from {transform: rotate3d(0,0,0, 0deg)}
+  to   {transform: rotate3d(1,0,0, 104deg)}}
+@keyframes out-left {
+  from {transform: rotate3d(0,0,0, 0deg)}
+  to   {transform: rotate3d(0,1,0, 104deg)}}
+
+
+.left {
+  background-color: rgba($color_primary, 0.3);
+  height: 360px;
+  top: 20px;
+  position: relative;
+  width: 50%;
+}
+@media (max-width: 767px) {
+  .left {
+    height: 100%;
+    left: 20px;
+    width: calc(100% - 40px);
+    max-height: 270px;
+  }
+}
+.section_title {
+  font-size: 50px;
+  font-weight: 900;
+  margin: 50px 40px 40px;
+}
+.section_content {
+  color: lighten($color_text, 20);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 40px;
+}
+.plain_block {
+  background: $color_text;
+  box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.22);
+  position: relative;
+  min-height: 400px;
+  padding: 40px;
+  color: $color_primary;
+  .btn-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 48px 0 16px;
+  }
+  .btn-primary {
+    display: block;
+    color: $color_primary;
+    border: 2px solid $color_primary;
+    width: 30%;
+    border-radius: 0;
+    padding: 1rem;
+    background: transparent;
+    &:hover, &:active {
+      background: $color_primary;
+      border: 2px solid $color_primary;
+      color: $color_text;
+    }
+  }
+  i {
+    display: block;
+    margin: 1rem;
+  }
+}
+@media (max-width: 767px) {
+  .plain_block {
+    flex-shrink: 0;
+    height: 100%;
+    width: 100%;
+    max-height: 350px;
+  }
+}
+
+textarea {
+  border: 2px solid $color_primary;
+  color: $color_text;
+}

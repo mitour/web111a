@@ -21,6 +21,11 @@ h1 {
 .wrap {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+}
+
+.flex {
+  display: flex;
 }
 
 .container {
@@ -321,4 +326,18 @@ textarea {
     font-size: 14px;
     vertical-align: middle;
   }
+}
+
+aside {
+  a {
+    padding: 20px 40px;
+  }
+}
+
+.btn_top {
+  position: fixed;
+  right: 10%;
+  bottom: 10%;
+  padding: 15px;
+  z-index: 999;
 }

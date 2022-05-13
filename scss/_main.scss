@@ -54,6 +54,9 @@ a {
   color: $color_text;
   transform: rotate(-10deg);
   text-align: center;
+  &:hover {
+    color: $color_text;
+  }
   h1 {
     font-size: 2em;
     border-top: 2px solid $color_primary;

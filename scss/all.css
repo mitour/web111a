@@ -124,6 +124,10 @@ a:hover {
   text-align: center;
 }
 
+.logo:hover {
+  color: #222e50;
+}
+
 .logo h1 {
   font-size: 2em;
   border-top: 2px solid #ffcf56;

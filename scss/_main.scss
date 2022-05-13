@@ -18,6 +18,15 @@ h1 {
   color: $color_text;
 }
 
+a {
+  text-decoration: none;
+  display: inline-block;
+  color: $color_text;
+  &:hover {
+    color: $color_primary;
+  }
+}
+
 .wrap {
   max-width: 1200px;
   margin: 0 auto;
@@ -45,37 +54,34 @@ h1 {
   color: $color_text;
   transform: rotate(-10deg);
   text-align: center;
-  &:hover {
-    color: $color_text;
-  }
   h1 {
+    font-size: 2em;
     border-top: 2px solid $color_primary;
-    margin-bottom: -5px;
     word-spacing: 5px;
     letter-spacing: 3px;
     &::before {
       position: absolute;
-      left: 3rem;
-      top: 0rem;
+      left: 4rem;
+      top: 1rem;
       z-index: -1;
       content: '\f111';
       font-family: "Font Awesome 6 Free";
       font-weight: 900;
-      font-size: 4em;
+      font-size: 9rem;
       color: $color_primary;
     }
   }
   h2 {
     border-bottom: 2px solid $color_primary;
-    font-size: 12px;
     &::after {
       position: absolute;
       z-index: -1;
       content: '\f111';
       font-family: "Font Awesome 6 Free";
       font-weight: 900;
-      font-size: 5em;
+      font-size: 4em;
       top: 6.5rem;
+      right: 2rem;
     }
   }
 }
@@ -98,7 +104,6 @@ h1 {
       color: $color_text;
       border-top: 3px solid transparent;
       border-bottom: 3px solid transparent;
-      font-size: 24px;
       height: 200px;
       padding-top: calc(100px - 24px);
       &:hover {
@@ -300,6 +305,7 @@ textarea {
 .intro {
   background-color: rgba($color_primary, 0.3);
   height: 400px;
+  margin: 0 40px;
   &::before {
     content: '';
     display: inline-block;
@@ -318,19 +324,28 @@ textarea {
       right: calc(100% - 190px);
       bottom: 10px;
       font-size: 12px;
+      background-color: rgba(255, 255, 255, 0.5);
     }
   }
   .content {
     display: inline-block;
     width: 60%;
-    font-size: 14px;
     vertical-align: middle;
   }
 }
 
+i {
+  margin: 0 5px;
+}
+
 aside {
+  flex: none;
+  .aside_list_item {
+    padding: 0;
+  }
   a {
-    padding: 20px 40px;
+    padding: 14px 32px;
+    width: 100%;
   }
 }
 
@@ -340,4 +355,13 @@ aside {
   bottom: 10%;
   padding: 15px;
   z-index: 999;
+  background-color: rgba($color_primary, 1);
+  color: $color_text;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 30px #000;
+  &:hover {
+    background-color: rgba($color_text, 1);
+    color: $color_primary;
+  }
 }

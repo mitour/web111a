@@ -83,6 +83,16 @@ h1 {
   color: #222e50;
 }
 
+a {
+  text-decoration: none;
+  display: inline-block;
+  color: #222e50;
+}
+
+a:hover {
+  color: #ffcf56;
+}
+
 .wrap {
   max-width: 1200px;
   margin: 0 auto;
@@ -114,32 +124,27 @@ h1 {
   text-align: center;
 }
 
-.logo:hover {
-  color: #222e50;
-}
-
 .logo h1 {
+  font-size: 2em;
   border-top: 2px solid #ffcf56;
-  margin-bottom: -5px;
   word-spacing: 5px;
   letter-spacing: 3px;
 }
 
 .logo h1::before {
   position: absolute;
-  left: 3rem;
-  top: 0rem;
+  left: 4rem;
+  top: 1rem;
   z-index: -1;
   content: '\f111';
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  font-size: 4em;
+  font-size: 9rem;
   color: #ffcf56;
 }
 
 .logo h2 {
   border-bottom: 2px solid #ffcf56;
-  font-size: 12px;
 }
 
 .logo h2::after {
@@ -148,8 +153,9 @@ h1 {
   content: '\f111';
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  font-size: 5em;
+  font-size: 4em;
   top: 6.5rem;
+  right: 2rem;
 }
 
 .nav {
@@ -180,7 +186,6 @@ h1 {
   color: #222e50;
   border-top: 3px solid transparent;
   border-bottom: 3px solid transparent;
-  font-size: 24px;
   height: 200px;
   padding-top: calc(100px - 24px);
 }
@@ -574,6 +579,7 @@ textarea {
 .intro {
   background-color: rgba(255, 207, 86, 0.3);
   height: 400px;
+  margin: 0 40px;
 }
 
 .intro::before {
@@ -597,17 +603,32 @@ textarea {
   right: calc(100% - 190px);
   bottom: 10px;
   font-size: 12px;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .intro .content {
   display: inline-block;
   width: 60%;
-  font-size: 14px;
   vertical-align: middle;
 }
 
+i {
+  margin: 0 5px;
+}
+
+aside {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+}
+
+aside .aside_list_item {
+  padding: 0;
+}
+
 aside a {
-  padding: 20px 40px;
+  padding: 14px 32px;
+  width: 100%;
 }
 
 .btn_top {
@@ -616,5 +637,16 @@ aside a {
   bottom: 10%;
   padding: 15px;
   z-index: 999;
+  background-color: #ffcf56;
+  color: #222e50;
+  border: none;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 30px #000;
+          box-shadow: 0 0 30px #000;
+}
+
+.btn_top:hover {
+  background-color: #222e50;
+  color: #ffcf56;
 }
 /*# sourceMappingURL=all.css.map */

@@ -289,3 +289,36 @@ textarea {
   border: 2px solid $color_primary;
   color: $color_text;
 }
+
+// 0511 homework
+
+.intro {
+  background-color: rgba($color_primary, 0.3);
+  height: 400px;
+  &::before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+  }
+  .img{
+    display: inline-block;
+    position: relative;
+    display: inline-block;
+    width: 30%;
+    vertical-align: middle;
+    &::before {
+      position: absolute;
+      content: 'Powerrd by HTML.COM';
+      right: calc(100% - 190px);
+      bottom: 10px;
+      font-size: 12px;
+    }
+  }
+  .content {
+    display: inline-block;
+    width: 60%;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+}

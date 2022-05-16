@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <clipPath id="clip-utility_dark">
+      <rect width="150" height="150"/>
+    </clipPath>
+  </defs>
+  <g id="utility_dark" data-name="utility – dark" clip-path="url(#clip-utility_dark)">
+    <line id="Line_6" data-name="Line 6" y1="140" x2="140" transform="translate(33.5 -23.5)" fill="none" stroke="#707070" stroke-width="1"/>
+    <circle id="Ellipse_7" data-name="Ellipse 7" cx="103.5" cy="103.5" r="103.5" transform="translate(0 -57)" fill="#232f4f"/>
+  </g>
+</svg>

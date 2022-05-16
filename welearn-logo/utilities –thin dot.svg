@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <clipPath id="clip-utility_thin_dot">
+      <rect width="150" height="150"/>
+    </clipPath>
+  </defs>
+  <g id="utility_thin_dot" data-name="utility –thin dot" clip-path="url(#clip-utility_thin_dot)">
+    <g id="Ellipse_7" data-name="Ellipse 7" transform="translate(0 -57)" fill="none" stroke="#fece61" stroke-width="3" stroke-dasharray="12 14">
+      <circle cx="103.5" cy="103.5" r="103.5" stroke="none"/>
+      <circle cx="103.5" cy="103.5" r="102" fill="none"/>
+    </g>
+  </g>
+</svg>

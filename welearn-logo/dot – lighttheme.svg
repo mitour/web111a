@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="767" height="500" viewBox="0 0 767 500">
+  <defs>
+    <clipPath id="clip-dot_lighttheme">
+      <rect width="767" height="500"/>
+    </clipPath>
+  </defs>
+  <g id="dot_lighttheme" data-name="dot – lighttheme" clip-path="url(#clip-dot_lighttheme)">
+    <line id="Line_4" data-name="Line 4" x2="628" transform="matrix(0.966, -0.259, 0.259, 0.966, 98.699, 424)" fill="none" stroke="#232f4f" stroke-width="6"/>
+    <line id="Line_5" data-name="Line 5" x2="628" transform="matrix(0.966, -0.259, 0.259, 0.966, 62, 274.731)" fill="none" stroke="#232f4f" stroke-width="6"/>
+    <circle id="Ellipse_4" data-name="Ellipse 4" cx="187" cy="187" r="187" transform="translate(161.301 63)" fill="#fece61"/>
+    <circle id="Ellipse_5" data-name="Ellipse 5" cx="77" cy="77" r="77" transform="translate(535.301 261)" fill="#232f4f"/>
+    <g id="Ellipse_6" data-name="Ellipse 6" transform="translate(183.301 85)" fill="none" stroke="#232f4f" stroke-width="6" stroke-dasharray="10 18">
+      <circle cx="165" cy="165" r="165" stroke="none"/>
+      <circle cx="165" cy="165" r="162" fill="none"/>
+    </g>
+    <text id="WE_LEARN" data-name="WE LEARN" transform="matrix(0.966, -0.259, 0.259, 0.966, 151.868, 338.247)" fill="#232f4f" font-size="84" font-family="NovaRound, Nova Round" letter-spacing="0.048em"><tspan x="0" y="0">WE LEARN</tspan></text>
+    <text id="from_now_on" data-name="from now on" transform="matrix(0.966, -0.259, 0.259, 0.966, 248.184, 351.41)" fill="#232f4f" font-size="40" font-family="NovaRound, Nova Round" letter-spacing="0.024em"><tspan x="0" y="0">from now on</tspan></text>
+  </g>
+</svg>

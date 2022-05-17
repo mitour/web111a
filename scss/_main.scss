@@ -20,7 +20,7 @@ h1 {
 
 a {
   text-decoration: none;
-  display: inline-block;
+  display: block;
   color: $color_text;
   &:hover {
     color: $color_primary;
@@ -28,8 +28,6 @@ a {
 }
 
 .wrap {
-  max-width: 1200px;
-  margin: 0 auto;
   position: relative;
 }
 
@@ -38,7 +36,16 @@ a {
 }
 
 .container {
-  margin: 16px 0;
+  // margin: 16px 0;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.aside {
+  width: 30%;
+}
+.main {
+  width: 70%;
 }
 
 // logo
@@ -94,28 +101,67 @@ a {
   display: flex;
   justify-content: space-between;
   margin: 16px 0;
-  ul {
-    display: flex;
-    i {
-      margin-right: 10px;
-      color: $color_text;
-    }
-    a {
-      display: inline-block;
-      padding: 24px 48px;
-      text-decoration: none;
-      color: $color_text;
-      border-top: 3px solid transparent;
-      border-bottom: 3px solid transparent;
-      height: 200px;
-      padding-top: calc(100px - 24px);
-      &:hover {
-        border-top: 3px solid $color_primary;
-        border-bottom: 3px solid $color_primary;
-        transition: all $duration linear;
-      }
+  i {
+    margin-right: 10px;
+    color: $color_text;
+  }
+  h1 {
+    padding: 22px 24px;
+  }
+  input {
+    margin: 22px 0;
+  }
+  .nav-link {
+    display: inline-block;
+    padding: 22px 24px;
+    text-decoration: none;
+    color: $color_text;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    height: 60px;
+    &:hover {
+      border-top: 3px solid $color_primary;
+      border-bottom: 3px solid $color_primary;
+      transition: all $duration linear;
     }
   }
+}
+
+.col-1 {
+  width: calc(100% / 12 * 1);
+}
+.col-2 {
+  width: calc(100% / 12 * 2);
+}
+.col-3 {
+  width: calc(100% / 12 * 3);
+}
+.col-4 {
+  width: calc(100% / 12 * 4);
+}
+.col-5 {
+  width: calc(100% / 12 * 5);
+}
+.col-6 {
+  width: calc(100% / 12 * 6);
+}
+.col-7 {
+  width: calc(100% / 12 * 7);
+}
+.col-8 {
+  width: calc(100% / 12 * 8);
+}
+.col-9 {
+  width: calc(100% / 12 * 9);
+}
+.col-10 {
+  width: calc(100% / 12 * 10);
+}
+.col-11 {
+  width: calc(100% / 12 * 11);
+}
+.col-12 {
+  width: calc(100% / 12 * 12);
 }
 
 // css animation
@@ -341,14 +387,19 @@ i {
   margin: 0 5px;
 }
 
-aside {
+.aside {
   flex: none;
-  .aside_list_item {
-    padding: 0;
-  }
   a {
-    padding: 14px 32px;
-    width: 100%;
+    input {
+      width: 100%;
+      height: 100%;
+    }
+    height: 60px;
+    &:hover input {
+      background-color: $color_primary;
+      color: red;
+      transition: all $duration linear;
+    }
   }
 }
 

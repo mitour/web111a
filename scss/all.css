@@ -85,7 +85,7 @@ h1 {
 
 a {
   text-decoration: none;
-  display: inline-block;
+  display: block;
   color: #222e50;
 }
 
@@ -94,8 +94,6 @@ a:hover {
 }
 
 .wrap {
-  max-width: 1200px;
-  margin: 0 auto;
   position: relative;
 }
 
@@ -106,7 +104,16 @@ a:hover {
 }
 
 .container {
-  margin: 16px 0;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.aside {
+  width: 30%;
+}
+
+.main {
+  width: 70%;
 }
 
 .logo {
@@ -172,33 +179,82 @@ a:hover {
   margin: 16px 0;
 }
 
-.nav ul {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.nav ul i {
+.nav i {
   margin-right: 10px;
   color: #222e50;
 }
 
-.nav ul a {
+.nav h1 {
+  padding: 22px 24px;
+}
+
+.nav input {
+  margin: 22px 0;
+}
+
+.nav .nav-link {
   display: inline-block;
-  padding: 24px 48px;
+  padding: 22px 24px;
   text-decoration: none;
   color: #222e50;
   border-top: 3px solid transparent;
   border-bottom: 3px solid transparent;
-  height: 200px;
-  padding-top: calc(100px - 24px);
+  height: 60px;
 }
 
-.nav ul a:hover {
+.nav .nav-link:hover {
   border-top: 3px solid #ffcf56;
   border-bottom: 3px solid #ffcf56;
   -webkit-transition: all 300ms linear;
   transition: all 300ms linear;
+}
+
+.col-1 {
+  width: calc(100% / 12 * 1);
+}
+
+.col-2 {
+  width: calc(100% / 12 * 2);
+}
+
+.col-3 {
+  width: calc(100% / 12 * 3);
+}
+
+.col-4 {
+  width: calc(100% / 12 * 4);
+}
+
+.col-5 {
+  width: calc(100% / 12 * 5);
+}
+
+.col-6 {
+  width: calc(100% / 12 * 6);
+}
+
+.col-7 {
+  width: calc(100% / 12 * 7);
+}
+
+.col-8 {
+  width: calc(100% / 12 * 8);
+}
+
+.col-9 {
+  width: calc(100% / 12 * 9);
+}
+
+.col-10 {
+  width: calc(100% / 12 * 10);
+}
+
+.col-11 {
+  width: calc(100% / 12 * 11);
+}
+
+.col-12 {
+  width: calc(100% / 12 * 12);
 }
 
 .css_animation ul {
@@ -620,19 +676,26 @@ i {
   margin: 0 5px;
 }
 
-aside {
+.aside {
   -webkit-box-flex: 0;
       -ms-flex: none;
           flex: none;
 }
 
-aside .aside_list_item {
-  padding: 0;
+.aside a {
+  height: 60px;
 }
 
-aside a {
-  padding: 14px 32px;
+.aside a input {
   width: 100%;
+  height: 100%;
+}
+
+.aside a:hover input {
+  background-color: #ffcf56;
+  color: red;
+  -webkit-transition: all 300ms linear;
+  transition: all 300ms linear;
 }
 
 .btn_top {

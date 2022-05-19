@@ -53,7 +53,18 @@ table {
 	box-sizing: border-box;
 }
 
+body {
+	font-family: 'Expletus Sans', 'Noto Sans TC', 'Bree Serif', serif;
+  color: $color_text;
+	cursor: auto;
+	a {
+		text-decoration: none;
+		display: block;
+	}
+}
+
 img {
 	max-width: 100%;
 	height: auto;
+	display: block;
 }

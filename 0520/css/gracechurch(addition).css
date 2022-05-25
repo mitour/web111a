@@ -1,0 +1,287 @@
+/* global start */
+:root {
+  --primaryColor: #ff6a48;
+}
+body {
+  height: 2000px;
+}
+* {
+  box-sizing: border-box;
+  font-family: "微軟正黑體";
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul,
+li,
+img {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+img {
+  width: 100%;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+/* grid for desktop  */
+.full-width {
+  width: 100%;
+}
+
+.fixed-width {
+  width: 960px;
+  margin: auto;
+}
+
+.col-1 {
+  width: calc(100% / 12 * 1);
+}
+
+.col-2 {
+  width: calc(100% / 12 * 2);
+}
+
+.col-3 {
+  width: calc(100% / 12 * 3);
+  background-color: var(--primaryColor);
+}
+
+.col-4 {
+  width: calc(100% / 12 * 4);
+}
+
+.col-5 {
+  width: calc(100% / 12 * 5);
+}
+
+.col-6 {
+  width: calc(100% / 12 * 6);
+}
+
+.col-7 {
+  width: calc(100% / 12 * 7);
+}
+
+.col-8 {
+  width: calc(100% / 12 * 8);
+}
+
+.col-9 {
+  width: calc(100% / 12 * 9);
+}
+
+.col-10 {
+  width: calc(100% / 12 * 10);
+}
+
+.col-11 {
+  width: calc(100% / 12 * 11);
+}
+
+.col-12 {
+  width: calc(100% / 12 * 12);
+}
+
+.nopa {
+  padding: 0 !important;
+}
+
+.no {
+  margin: 0 -15px;
+}
+
+[class*="col"] {
+  float: left;
+  padding: 15px;
+}
+
+li {
+  list-style: none;
+  /* float: left; */
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: var(--primaryColor);
+  color: #fff;
+  text-decoration: none;
+}
+a {
+  color: #000;
+  text-decoration: none;
+}
+/* global end */
+
+#nav-info {
+  /* height: 50px; */
+  /* line-height: 50px; */
+  /* background-color: #ccc; */
+  padding-top: 20px;
+  padding-bottom: 20px;
+  position: absolute;
+  /* background-color: rgba(255, 255, 255, 0.75); */
+}
+
+#nav-info .addr {
+  float: left;
+  padding: 8px 20px;
+  /* background-color: #0af; */
+  /* line-height: 50px; */
+}
+
+#nav-info .register {
+  float: right;
+  /* background-color: #0fa; */
+  /* line-height: 50px; */
+}
+
+#nav-info .donate {
+  float: right;
+  /* background-color: #a0f; */
+}
+
+#nav-info a {
+  /* text-decoration: none;
+    color: #000; */
+  padding: 8px 20px;
+  display: block;
+}
+
+#nav-info .register li {
+  float: left;
+}
+
+/* nav  */
+nav {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  position: absolute;
+  top: 77px;
+  /* background-color: rgba(255, 255, 255, 0.75); */
+}
+
+nav .logo {
+  float: left;
+}
+
+nav .menu {
+  float: right;
+}
+
+nav .menu li {
+  float: left;
+}
+
+nav a {
+  display: block;
+  padding: 8px 20px;
+}
+
+/* header  */
+header {
+  height: 800px;
+  background-image: url(../images/background.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.event {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  bottom: calc(100vh - 800px);
+  color: #fff;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+.date {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.day {
+  font-weight: 900;
+  font-size: 2.667rem;
+  display: block;
+}
+
+i {
+  padding: 5px;
+  padding-right: 10px;
+}
+
+.time,
+.title {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.time {
+  font-size: 0.9rem;
+  font-weight: 200;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.title a {
+  color: #fff;
+}
+
+.title a:hover {
+  color: var(--primaryColor);
+}
+
+.bdr-1 {
+  border-right: 1px solid #fff;
+}
+
+.btn-l {
+  padding: 1.5rem 2.5rem;
+  background-color: transparent;
+  font-weight: 900;
+  font-size: 1rem;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 200ms linear;
+}
+
+.btn-l:hover {
+  border-color: var(--primaryColor);
+  color: var(--primaryColor);
+}
+
+.locate {
+  font-size: 0.9rem;
+}
+.locate i {
+  align-self: start;
+}

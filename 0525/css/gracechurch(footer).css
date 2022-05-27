@@ -635,12 +635,12 @@ footer .col-4 a:hover {
   color: #fff;
 }
 
-.title {
+.pastor .title {
   font-size: 1rem;
   margin-bottom: 3rem;
 }
 
-.title::before {
+.pastor .title::before {
   content: "——";
   padding-right: 1rem;
 }

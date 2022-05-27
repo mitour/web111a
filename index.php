@@ -3,7 +3,7 @@
 <div class="css_animation">
   <ul>
     <?php
-    for ( $i=1 ; $i<=10 ; $i++ ) {
+    for ( $i=1 ; $i<=12 ; $i++ ) {
       $card = '<li>';
       $card .= '<img class="img-fluid normal" src="https://source.unsplash.com/random/'.$i.'" alt="">';
       $card .= '<div class="info">';

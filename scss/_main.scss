@@ -1,6 +1,12 @@
-
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   // outline: 1px solid #000;
+}
+
+button {
+  cursor: pointer;
+  border: none;
 }
 
 img {
@@ -8,19 +14,32 @@ img {
 }
 
 h1 {
-  font-family: 'Nova Round', 'Noto Sans TC', cursive;
-  color: $color_text;
+  font-family: "Nova Round", "Noto Sans TC", cursive;
+}
+
+h3,
+.h3 {
+  font-size: 1.5rem;
 }
 
 a {
-  color: $color_text;
-  &:hover {
-    color: $color_primary;
-  }
+  color: #000;
+  text-decoration: none;
+  display: block;
+}
+
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.btn-group .btn {
+  text-align: center;
 }
 
 .wrap {
   position: relative;
+  padding-bottom: 100px; // footer
 }
 
 .flex {
@@ -29,93 +48,101 @@ a {
 
 .container {
   // margin: 16px 0;
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.aside {
-  width: 30%;
-}
-.main {
-  width: 70%;
-}
-
 // logo
-.logo {
-  position: relative;
-  width: 300px;
-  height: 200px;
-  padding: 30px;
-  padding-top: 70px;
-  margin-left: 10px;
-  font-family: 'Expletus Sans', cursive;
-  text-decoration: none;
-  color: $color_text;
-  transform: rotate(-10deg);
-  text-align: center;
-  &:hover {
-    color: $color_text;
-  }
-  h1 {
-    font-size: 2em;
-    border-top: 2px solid $color_primary;
-    word-spacing: 5px;
-    letter-spacing: 3px;
-    &::before {
-      position: absolute;
-      left: 4rem;
-      top: 1rem;
-      z-index: -1;
-      content: '\f111';
-      font-family: "Font Awesome 6 Free";
-      font-weight: 900;
-      font-size: 9rem;
-      color: $color_primary;
-    }
-  }
-  h2 {
-    border-bottom: 2px solid $color_primary;
-    &::after {
-      position: absolute;
-      z-index: -1;
-      content: '\f111';
-      font-family: "Font Awesome 6 Free";
-      font-weight: 900;
-      font-size: 4em;
-      top: 6.5rem;
-      right: 2rem;
-    }
-  }
+.logo img {
+  height: 80px;
+}
+.navbar {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
 }
 
 // nav bar
-.nav {
-  display: flex;
+.navbar.flex {
   justify-content: space-between;
+}
+.nav {
+  &-collapse {
+    &.active {
+      display: block;
+      flex-direction: column;
+
+      width: 100%; // 讓 flex-wrap 才會撐到下一行
+    }
+  }
   margin: 16px 0;
   i {
     margin-right: 10px;
-    color: $color_text;
-  }
-  h1 {
-    padding: 22px 24px;
   }
   input {
     margin: 22px 0;
   }
   .nav-link {
-    display: inline-block;
-    padding: 22px 24px;
-    text-decoration: none;
-    color: $color_text;
-    border-top: 3px solid transparent;
-    border-bottom: 3px solid transparent;
-    height: 60px;
+    padding: 22px 16px;
+    transition: color 5s linear, background-color 5s linear;
     &:hover {
-      border-top: 3px solid $color_primary;
-      border-bottom: 3px solid $color_primary;
-      transition: all $duration linear;
+      color: #fff;
+      background-color: #000;
+      i {
+        color: #fff;
+      }
     }
+  }
+}
+
+$size: 3.5rem;
+.navbar-toggler {
+  display: none;
+  width: $size;
+  height: $size;
+  // style of bars
+  i,
+  span::after,
+  span::before {
+    font-size: $size * 0.6;
+    line-height: $size * 0.1;
+    color: teal;
+    vertical-align: middle;
+
+    // 三線變成❌的轉場
+    transition: all 300ms ease-out;
+  }
+  span {
+    &::after,
+    &::before {
+      display: inline-block;
+
+      // 上下的線
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      content: "\f068";
+    }
+  }
+  // active 下變❌
+  &.active {
+    i {
+      opacity: 0;
+    }
+    span::before {
+      transform: translateY(1rem) rotate(45deg);
+    }
+    span::after {
+      transform: translateY(-1rem) rotate(-45deg);
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-toggler {
+    display: block;
+  }
+  .nav-collapse {
+    display: none;
   }
 }
 
@@ -185,8 +212,8 @@ a {
   }
   .info {
     // hide-initial-state
-    transform: rotate3d(1,0,0, 90deg);
-    
+    transform: rotate3d(1, 0, 0, 90deg);
+
     width: 100%;
     height: 100%;
     padding: 20px;
@@ -207,10 +234,9 @@ a {
   }
 }
 
-
 .in-top .info {
-   transform-origin: 50% 0%;
-   animation: in-top $duration $timing-fn 0ms 1 forwards;
+  transform-origin: 50% 0%;
+  animation: in-top $duration $timing-fn 0ms 1 forwards;
 }
 .in-right .info {
   transform-origin: 100% 0%;
@@ -243,31 +269,70 @@ a {
 }
 
 @keyframes in-top {
-  from {transform: rotate3d(-1,0,0, 90deg)}
-  to   {transform: rotate3d(0,0,0, 0deg)}}
+  from {
+    transform: rotate3d(-1, 0, 0, 90deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
 @keyframes in-right {
-  from {transform: rotate3d(0,-1,0, 90deg)}
-  to   {transform: rotate3d(0,0,0, 0deg)}}
+  from {
+    transform: rotate3d(0, -1, 0, 90deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
 @keyframes in-bottom {
-  from {transform: rotate3d(1,0,0, 90deg)}
-  to   {transform: rotate3d(0,0,0, 0deg)}}
+  from {
+    transform: rotate3d(1, 0, 0, 90deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
 @keyframes in-left {
-  from {transform: rotate3d(0,1,0, 90deg)}
-  to   {transform: rotate3d(0,0,0, 0deg)}}
+  from {
+    transform: rotate3d(0, 1, 0, 90deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
 
 @keyframes out-top {
-  from {transform: rotate3d(0,0,0, 0deg)}
-  to   {transform: rotate3d(-1,0,0, 104deg)}}
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(-1, 0, 0, 104deg);
+  }
+}
 @keyframes out-right {
-  from {transform: rotate3d(0,0,0, 0deg)}
-  to   {transform: rotate3d(0,-1,0, 104deg)}}
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(0, -1, 0, 104deg);
+  }
+}
 @keyframes out-bottom {
-  from {transform: rotate3d(0,0,0, 0deg)}
-  to   {transform: rotate3d(1,0,0, 104deg)}}
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(1, 0, 0, 104deg);
+  }
+}
 @keyframes out-left {
-  from {transform: rotate3d(0,0,0, 0deg)}
-  to   {transform: rotate3d(0,1,0, 104deg)}}
-
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(0, 1, 0, 104deg);
+  }
+}
 
 .left {
   background-color: rgba($color_primary, 0.3);
@@ -297,7 +362,7 @@ a {
 }
 .plain_block {
   background: $color_text;
-  box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.22);
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.22);
   position: relative;
   min-height: 400px;
   padding: 40px;
@@ -316,7 +381,8 @@ a {
     border-radius: 0;
     padding: 1rem;
     background: transparent;
-    &:hover, &:active {
+    &:hover,
+    &:active {
       background: $color_primary;
       border: 2px solid $color_primary;
       color: $color_text;
@@ -328,6 +394,9 @@ a {
   }
 }
 @media (max-width: 767px) {
+  .logo {
+    display: none;
+  }
   .plain_block {
     flex-shrink: 0;
     height: 100%;
@@ -348,12 +417,12 @@ textarea {
   height: 400px;
   margin: 0 40px;
   &::before {
-    content: '';
+    content: "";
     display: inline-block;
     vertical-align: middle;
     height: 100%;
   }
-  .img{
+  .img {
     display: inline-block;
     position: relative;
     display: inline-block;
@@ -361,7 +430,7 @@ textarea {
     vertical-align: middle;
     &::before {
       position: absolute;
-      content: 'Powerrd by HTML.COM';
+      content: "Powerrd by HTML.COM";
       right: calc(100% - 190px);
       bottom: 10px;
       font-size: 12px;
@@ -380,20 +449,24 @@ i {
 }
 
 .aside {
-  flex: none;
   a {
     input {
       width: 100%;
       height: 100%;
+      cursor: pointer;
+      border: none;
+      background-color: #fff;
     }
     height: 60px;
     &:hover input {
-      background-color: $color_primary;
-      color: red;
-      transition: all $duration linear;
+      background-color: #000;
+      color: #fff;
+      transition: color 5s linear, background-color 5s linear;
     }
   }
 }
+
+//btn_top
 
 .btn_top {
   position: fixed;
@@ -409,5 +482,67 @@ i {
   &:hover {
     background-color: rgba($color_text, 1);
     color: $color_primary;
+  }
+}
+
+//grid
+
+.grid {
+  width: 100%;
+  height: 100vh;
+  background-color: pink;
+  &::after {
+    content: "<768";
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .grid {
+    background-color: Indigo;
+    &::after {
+      color: #fff;
+      content: ">768";
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .grid {
+    background-color: cornflowerblue;
+    &::after {
+      content: ">992";
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .grid {
+    background-color: teal;
+    &::after {
+      content: ">1200";
+    }
+  }
+}
+
+/* footer   */
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 16px;
+  background-color: rgba($color_primary, 1);
+  a {
+    padding-right: 5px;
+  }
+  a:hover {
+    color: var(--primaryColor);
+  }
+}
+
+.footer-link {
+  padding: 16px;
+  border-radius: 6rem;
+  &:hover {
+    background-color: #fff;
   }
 }

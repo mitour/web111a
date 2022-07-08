@@ -32,10 +32,9 @@ router.post(
     });
     try {
       const savedUser = await user.save();
-      res.send(savedUser);
+      res.send({ user: savedUser._id });
     } catch (err) {
       res.status(400).send(err);
-      console.log(err);
     }
   }
 );

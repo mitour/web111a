@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const bcryptjs = require("bcryptjs");
 const User = require("../model/User");
 const { registerValidation } = require("../validation");
 router.post(
@@ -22,10 +23,12 @@ router.post(
     }
   },
   async (req, res) => {
+    const salt = await bcryptjs.genSalt(10);
+    const hashedPassword = await bcryptjs.hash(req.body.password, salt);
     const user = new User({
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      password: hashedPassword,
     });
     try {
       const savedUser = await user.save();

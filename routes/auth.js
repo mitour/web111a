@@ -11,6 +11,16 @@ router.post(
       res.status(400).send(err.message);
     }
   },
+  async (req, res, next) => {
+    try {
+      const isEmailExist = await User.findOne({ email: req.body.email });
+      if (isEmailExist)
+        return res.status(400).send("email is already registered.");
+      next();
+    } catch (err) {
+      res.status(500).send("Internal server error");
+    }
+  },
   async (req, res) => {
     const user = new User({
       name: req.body.name,

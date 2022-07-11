@@ -4,16 +4,13 @@ require("dotenv").config();
 const authRoute = require("./routes/auth");
 const mongoose = require("mongoose");
 
-mongoose.connect(
-  process.env.DB_CONNECT,
-  {
+mongoose
+  .connect(process.env.DB_CONNECT, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  },
-  () => {
-    console.log("connect to DB");
-  }
-);
+  })
+  .then(() => console.log("connected to db"))
+  .catch((e) => console.log(e));
 
 app.use(express.json());
 app.use("/user", authRoute);

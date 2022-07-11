@@ -61,8 +61,10 @@ router.post(
       );
       if (!validPass)
         return res.status(400).send("email or password is wrong.");
-      const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-      res.writeHead(200, { "auth-token": token });
+      const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+        expiresIn: "1d",
+      });
+      res.writeHead(200, { Authorization: `Bearer ${token}` });
       res.end("logged in!");
     } catch (err) {
       res.status(500).send("Internal server error");

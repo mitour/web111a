@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
+const helmet = require("helmet");
 const authRoute = require("./routes/auth");
 const mongoose = require("mongoose");
+app.use(helmet());
 
 mongoose
   .connect(process.env.DB_CONNECT, {

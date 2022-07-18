@@ -22,9 +22,7 @@ const loginValidation = async (data) => {
       .required()
       .min(6)
       .pattern(new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9_]{6,}"))
-      .message(
-        `"password" must be at least one uppercase letter, one lowercase letter and one number`
-      ),
+      .message(`email or password is wrong.`),
   });
   return await schema.validateAsync(data);
 };

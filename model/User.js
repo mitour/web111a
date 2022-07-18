@@ -18,8 +18,11 @@ const userSchema = new mongoose.Schema(
       minLength: 6,
       maxLength: 1024,
     },
-    createdAt: { type: Date },
-    updatedAt: { type: Date },
+    role: {
+      type: String,
+      default: "basic",
+      enum: ["basic", "supervisor", "admin"],
+    },
   },
   {
     timestamps: {

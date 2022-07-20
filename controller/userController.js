@@ -1,8 +1,8 @@
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const verify = require("../verifyToken");
 const User = require("../model/userModel");
 const { registerValidation, loginValidation } = require("../validation");
+const { roles } = require("../roles");
 
 async function hashPassword(password) {
   const salt = await bcryptjs.genSalt(10);
@@ -12,6 +12,40 @@ async function hashPassword(password) {
 async function validatePassword(plainPassword, hashedPassword) {
   return await bcryptjs.compare(plainPassword, hashedPassword);
 }
+
+grantAccess = function (action, resource) {
+  return async (req, res, next) => {
+    try {
+      const permission =
+        (req.user.role === "admin" ||
+          req.user.role === "supervisor" ||
+          String(req.user._id) === req.params.userId) &&
+        roles.can(req.user.role)[action](resource).granted;
+      if (!permission) {
+        return res.status(401).json({
+          error: "You don't have enough permission to perform this action",
+        });
+      }
+      next();
+    } catch (error) {
+      next(error);
+    }
+  };
+};
+
+allowIfLoggedin = async (req, res, next) => {
+  try {
+    const user = res.locals.loggedInUser;
+    if (!user)
+      return res.status(401).json({
+        error: "You need to be logged in to access this route",
+      });
+    req.user = await User.findById(user._id);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
 
 register = async (req, res) => {
   try {
@@ -65,4 +99,63 @@ login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+getUsers = async (req, res, next) => {
+  const users = await User.find({});
+  res.status(200).json({
+    data: users,
+  });
+};
+
+getUser = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).send("User does not exist");
+    res.status(200).json({
+      data: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+updateUser = async (req, res, next) => {
+  try {
+    const update = req.body;
+    const userId = req.params.userId;
+    await User.findByIdAndUpdate(userId, update);
+    const user = await User.findById(userId);
+    res.status(200).json({
+      data: user,
+      message: "User has been updated",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+deleteUser = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findOne({ _id: userId });
+    if (!user) return res.status(404).send("User does not exist");
+    await User.findByIdAndDelete(userId);
+    res.status(200).json({
+      data: null,
+      message: "User has been deleted",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  grantAccess,
+  allowIfLoggedin,
+  register,
+  login,
+  getUsers,
+  getUser,
+  updateUser,
+  deleteUser,
+};

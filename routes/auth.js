@@ -1,11 +1,40 @@
 const router = require("express").Router();
-const userController = require("../controller/userController");
+const {
+  register,
+  login,
+  allowIfLoggedin,
+  grantAccess,
+  getUser,
+  getUsers,
+  updateUser,
+  deleteUser,
+} = require("../controller/userController");
 
-router.post("/register", userController.register);
+router.post("/register", register);
 
-router.post("/login", userController.login);
+router.post("/login", login);
 
-// router.get("/", verify, (req, res) => {
-//   res.status(200).send(`This is user ${req.user._id} information page`);
-// });
+router.get(
+  "/:userId",
+  allowIfLoggedin,
+  grantAccess("readOwn", "profile"),
+  getUser
+);
+
+router.get("/", allowIfLoggedin, grantAccess("readAny", "profile"), getUsers);
+
+router.put(
+  "/:userId",
+  allowIfLoggedin,
+  grantAccess("updateOwn", "profile"),
+  updateUser
+);
+
+router.delete(
+  "/:userId",
+  allowIfLoggedin,
+  grantAccess("deleteAny", "profile"),
+  deleteUser
+);
+
 module.exports = router;

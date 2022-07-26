@@ -39,6 +39,17 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+userSchema.pre("findOneAndUpdate", async function (next) {
+  const user = await this.model.findOne(this.getQuery());
+  if (!this._update.password) return next();
+  const isSamePassword = await user.comparePassword(this._update.password);
+  if (isSamePassword) next(new Error("password is the same as the old one."));
+  const salt = await bcryptjs.genSalt(Number(process.env.BCRYPT_SALT));
+  const hashedPassword = await bcryptjs.hash(this._update.password, salt);
+  this._update.password = hashedPassword;
+  next();
+});
+
 userSchema.methods.comparePassword = async function (password) {
   return await bcryptjs.compare(password, this.password);
 };

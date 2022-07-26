@@ -6,12 +6,22 @@ const { roles } = require("../roles");
 grantAccess = function (action, resource) {
   return async (req, res, next) => {
     try {
+      let actionOwn, actionAny;
+      if (action.includes("read")) {
+        actionOwn = "readOwn";
+        actionAny = "readAny";
+      } else if (action.includes("update")) {
+        actionOwn = "updateOwn";
+        actionAny = "updateAny";
+      } else if (action.includes("delete")) {
+        actionOwn = "deleteOwn";
+        actionAny = "deleteAny";
+      }
       const permission =
-        (req.user.role === "admin" ||
-          req.user.role === "supervisor" ||
-          String(req.user._id) === req.params.userId) &&
-        roles.can(req.user.role)[action](resource).granted;
-      if (!permission) {
+        String(req.user._id) === req.params.userId
+          ? roles.can(req.user.role)[actionOwn](resource)
+          : roles.can(req.user.role)[actionAny](resource);
+      if (!permission.granted) {
         return res.status(401).json({
           error: "You don't have enough permission to perform this action",
         });

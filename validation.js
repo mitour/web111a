@@ -27,4 +27,16 @@ const loginValidation = async (data) => {
   return await schema.validateAsync(data);
 };
 
-module.exports = { registerValidation, loginValidation };
+const updateValidation = async (data) => {
+  const schema = Joi.object({
+    name: Joi.string().min(3).max(20),
+    email: Joi.string().max(255).email(),
+    password: Joi.string()
+      .min(6)
+      .pattern(new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9_]{6,}"))
+      .message(`email or password is wrong.`),
+  });
+  return await schema.validateAsync(data);
+};
+
+module.exports = { registerValidation, loginValidation, updateValidation };

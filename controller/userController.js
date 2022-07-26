@@ -1,6 +1,10 @@
 const jwt = require("jsonwebtoken");
 const User = require("../model/userModel");
-const { registerValidation, loginValidation } = require("../validation");
+const {
+  registerValidation,
+  loginValidation,
+  updateValidation,
+} = require("../validation");
 const { roles } = require("../roles");
 
 grantAccess = function (action, resource) {
@@ -119,6 +123,11 @@ getUser = async (req, res, next) => {
 };
 
 updateUser = async (req, res, next) => {
+  try {
+    await updateValidation(req.body);
+  } catch (err) {
+    return res.status(400).send(err.message);
+  }
   try {
     const update = req.body;
     const userId = req.params.userId;

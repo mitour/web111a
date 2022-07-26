@@ -1,17 +1,7 @@
-const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../model/userModel");
 const { registerValidation, loginValidation } = require("../validation");
 const { roles } = require("../roles");
-
-async function hashPassword(password) {
-  const salt = await bcryptjs.genSalt(10);
-  return await bcryptjs.hash(password, salt);
-}
-
-async function validatePassword(plainPassword, hashedPassword) {
-  return await bcryptjs.compare(plainPassword, hashedPassword);
-}
 
 grantAccess = function (action, resource) {
   return async (req, res, next) => {
@@ -61,11 +51,10 @@ register = async (req, res) => {
     return res.status(500).send("Internal server error");
   }
   const { name, email, password, role } = req.body;
-  const hashedPassword = await hashPassword(password);
   const user = new User({
     name,
     email,
-    password: hashedPassword,
+    password: password,
     role: role || "basic",
   });
   try {
@@ -86,7 +75,7 @@ login = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) return res.status(400).send("email or password is wrong.");
-    const validPass = await validatePassword(password, user.password);
+    const validPass = await user.comparePassword(password);
     if (!validPass) return res.status(400).send("email or password is wrong.");
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
       expiresIn: "1d",
@@ -123,6 +112,7 @@ updateUser = async (req, res, next) => {
   try {
     const update = req.body;
     const userId = req.params.userId;
+    console.log(update);
     await User.findByIdAndUpdate(userId, update);
     const user = await User.findById(userId);
     res.status(200).json({

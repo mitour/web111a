@@ -41,6 +41,8 @@ userSchema.pre("save", async function (next) {
 
 userSchema.pre("findOneAndUpdate", async function (next) {
   const user = await this.model.findOne(this.getQuery());
+  if (this._update.name === user.name)
+    return next(new Error("name is the same as the old one."));
   if (!this._update.password) return next();
   const isSamePassword = await user.comparePassword(this._update.password);
   if (isSamePassword) next(new Error("password is the same as the old one."));

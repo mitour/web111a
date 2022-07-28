@@ -11,6 +11,12 @@ const registerValidation = async (data) => {
       .message(
         `"password" must be at least one uppercase letter, one lowercase letter and one number`
       ),
+    confirm_password: Joi.string()
+      .required()
+      .valid(Joi.ref("password"))
+      .messages({
+        "any.only": `Password and confirm password does not match.`,
+      }),
     role: Joi.string().valid("admin", "supervisor", "basic"),
   });
   return await schema.validateAsync(data);

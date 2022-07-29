@@ -6,6 +6,7 @@ const {
   updateValidation,
 } = require("../validation");
 const { roles } = require("../roles");
+const nodemailer = require("../nodemailer.config");
 
 grantAccess = function (action, resource) {
   return async (req, res, next) => {
@@ -64,17 +65,29 @@ register = async (req, res) => {
   } catch (err) {
     return res.status(500).send("Internal server error");
   }
+  const url = req.protocol + "://" + req.get("host") + req.originalUrl;
   const { name, email, password, role } = req.body;
+  const token = jwt.sign({ email: req.body.email }, process.env.TOKEN_SECRET);
   const user = new User({
     name,
     email,
     password: password,
     role: role || "basic",
+    confirmationCode: token,
   });
   try {
     const savedUser = await user.save();
-    res.send({ user: savedUser._id });
+    nodemailer.sendConfirmationEmail(
+      savedUser.name,
+      savedUser.email,
+      savedUser.confirmationCode,
+      url
+    );
+    res.status(200).send({
+      message: "User was registered successfully! Please check your email",
+    });
   } catch (err) {
+    console.log(err);
     return res.status(400).send(err);
   }
 };
@@ -91,6 +104,8 @@ login = async (req, res) => {
     if (!user) return res.status(400).send("email or password is wrong.");
     const validPass = await user.comparePassword(password);
     if (!validPass) return res.status(400).send("email or password is wrong.");
+    if (user.status !== "Active")
+      return res.status(401).send("Pending Account. Please Verify Your Email!");
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
       expiresIn: "1d",
     });
@@ -157,6 +172,21 @@ deleteUser = async (req, res, next) => {
   }
 };
 
+verifyUser = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      confirmationCode: req.params.confirmationCode,
+    });
+    if (!user) return res.status(404).send({ message: "User Not found." });
+
+    await user.updateOne({ status: "Active" });
+    res.status(200).send("email confirm.");
+  } catch (err) {
+    console.log("error", err);
+    res.status(500).send({ message: err });
+  }
+};
+
 module.exports = {
   grantAccess,
   allowIfLoggedin,
@@ -166,4 +196,5 @@ module.exports = {
   getUser,
   updateUser,
   deleteUser,
+  verifyUser,
 };

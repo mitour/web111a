@@ -19,6 +19,15 @@ const userSchema = new mongoose.Schema(
       minLength: 6,
       maxLength: 1024,
     },
+    status: {
+      type: String,
+      default: "Pending",
+      enum: ["Pending", "Active"],
+    },
+    confirmationCode: {
+      type: String,
+      unique: true,
+    },
     role: {
       type: String,
       default: "basic",

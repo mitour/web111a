@@ -8,9 +8,12 @@ const {
   getUsers,
   updateUser,
   deleteUser,
+  verifyUser,
 } = require("../controller/userController");
 
 router.post("/register", register);
+
+router.get("/register/:confirmationCode", verifyUser);
 
 router.post("/login", login);
 

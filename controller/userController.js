@@ -56,14 +56,16 @@ register = async (req, res) => {
   try {
     await registerValidation(req.body);
   } catch (err) {
-    return res.status(400).send(err.message);
+    return res.status(400).send({ message: err.message });
   }
   try {
     const isEmailExist = await User.findOne({ email: req.body.email });
     if (isEmailExist)
-      return res.status(400).send("email is already registered.");
+      return res.status(400).send({
+        message: "email is already registered.",
+      });
   } catch (err) {
-    return res.status(500).send("Internal server error");
+    return res.status(500).send({ message: "Internal server error" });
   }
   const url = req.protocol + "://" + req.get("host") + req.originalUrl;
   const { name, email, password, role } = req.body;
@@ -88,7 +90,7 @@ register = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(400).send(err);
+    return res.status(400).send({ message: err });
   }
 };
 

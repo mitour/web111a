@@ -62,3 +62,10 @@
   width: 400px;
   background-color: rgba($color: #fff, $alpha: 0.6);
 }
+
+.nav-link {
+  color: #fff;
+  &:hover {
+    color: darken(#fff, 30%);
+  }
+}

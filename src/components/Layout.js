@@ -4,16 +4,15 @@ import { Link, Outlet } from "react-router-dom";
 function Navbar() {
   return (
     <>
-      <nav className="fixed-top navbar navbar-expand-sm navbar-dark bg-dark bg-opacity-25">
+      <nav className="fixed-top navbar p-sm-0 navbar-expand-sm navbar-dark bg-dark bg-opacity-75">
         <div className="container">
           <Link className="navbar-brand" to="/">
             <img
-              src={`${process.env.PUBLIC_URL}/favicon.svg`}
+              src={`${process.env.PUBLIC_URL}/favicon_dark.svg`}
               alt="Logo"
               height="50"
               className="d-inline-block align-text-center me-2"
             />
-            We Learn
           </Link>
           <button
             className="navbar-toggler"
@@ -31,9 +30,27 @@ function Navbar() {
             id="navbarNav"
           >
             <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link className="nav-link" to="/users/login">
+              <li className="nav-item me-3">
+                <Link className="nav-link px-3" to="/courses">
+                  Courses
+                </Link>
+              </li>
+              <li className="nav-item me-3">
+                <Link className="nav-link px-3" to="/about">
+                  About
+                </Link>
+              </li>
+              <li className="nav-item me-3">
+                <Link className="nav-link px-3" to="/users/login">
                   Login
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  to="/users/register"
+                  className="nav-link px-3 btn btn-primary rounded-pill"
+                >
+                  Register
                 </Link>
               </li>
             </ul>

@@ -8,7 +8,7 @@ const {
 const { roles } = require("../roles");
 const nodemailer = require("../nodemailer.config");
 
-grantAccess = function (action, resource) {
+const grantAccess = function (action, resource) {
   return async (req, res, next) => {
     try {
       let actionOwn, actionAny;
@@ -38,7 +38,7 @@ grantAccess = function (action, resource) {
   };
 };
 
-allowIfLoggedin = async (req, res, next) => {
+const allowIfLoggedin = async (req, res, next) => {
   try {
     const user = res.locals.loggedInUser;
     if (!user)
@@ -52,7 +52,7 @@ allowIfLoggedin = async (req, res, next) => {
   }
 };
 
-register = async (req, res) => {
+const register = async (req, res) => {
   try {
     await registerValidation(req.body);
   } catch (err) {
@@ -94,39 +94,47 @@ register = async (req, res) => {
   }
 };
 
-login = async (req, res) => {
+const login = async (req, res) => {
   try {
     await loginValidation(req.body);
   } catch (err) {
-    return res.status(400).send(err.message);
+    return res.status(400).send({ message: err.message });
   }
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).send("email or password is wrong.");
+    if (!user)
+      return res.status(400).send({ message: "email or password is wrong." });
     const validPass = await user.comparePassword(password);
-    if (!validPass) return res.status(400).send("email or password is wrong.");
+    if (!validPass)
+      return res.status(400).send({ message: "email or password is wrong." });
     if (user.status !== "Active")
-      return res.status(401).send("Pending Account. Please Verify Your Email!");
+      return res
+        .status(401)
+        .send({ message: "Pending Account. Please Verify Your Email!" });
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
       expiresIn: "1d",
     });
     res
-      .writeHead(200, { Authorization: `Bearer ${token}` })
-      .end(`${user.email} logged in.`);
+      .status(200)
+      .set({
+        "Access-Control-Expose-Headers": "Authorization",
+        Authorization: `Bearer ${token}`,
+      })
+      .send({ _id: user._id.toString(), message: `${user.email} logged in.` });
   } catch (err) {
-    res.status(500).send("Internal server error");
+    res.status(500).send({ message: "Internal server error" });
   }
 };
 
-getUsers = async (req, res, next) => {
+const getUsers = async (req, res, next) => {
   const users = await User.find({});
   res.status(200).json({
     data: users,
   });
 };
 
-getUser = async (req, res, next) => {
+const getUser = async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const user = await User.findById(userId);
@@ -139,7 +147,7 @@ getUser = async (req, res, next) => {
   }
 };
 
-updateUser = async (req, res, next) => {
+const updateUser = async (req, res, next) => {
   try {
     await updateValidation(req.body);
   } catch (err) {
@@ -159,7 +167,7 @@ updateUser = async (req, res, next) => {
   }
 };
 
-deleteUser = async (req, res, next) => {
+const deleteUser = async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const user = await User.findOne({ _id: userId });
@@ -174,7 +182,7 @@ deleteUser = async (req, res, next) => {
   }
 };
 
-verifyUser = async (req, res, next) => {
+const verifyUser = async (req, res, next) => {
   try {
     const user = await User.findOne({
       confirmationCode: req.params.confirmationCode,

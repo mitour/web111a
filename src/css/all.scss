@@ -1,22 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC&family=Nova+Round&family=Paytone+One&display=swap");
+@import "./mixin";
 * {
   box-sizing: border-box;
   font-family: "Nova Round", "Noto Sans TC", sans-serif;
 }
 
-.navbar-brand {
-  letter-spacing: 1px;
-}
-
 .page-not-found {
   .text-clip {
-    background: {
-      image: url("https://images.unsplash.com/photo-1585895729250-386968e985ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80");
-      repeat: no-repeat;
-      size: 100%;
-      position: bottom center;
-      clip: text;
-    }
+    @include full-background-image(
+      "https://images.unsplash.com/photo-1585895729250-386968e985ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+      bottom center
+    );
+    background-clip: text;
     color: transparent;
     h1,
     h2 {
@@ -35,11 +30,26 @@
 }
 
 .hero {
+  position: relative;
+  min-height: 60vh;
+  &::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    @include full-background-image(
+      "https://images.unsplash.com/photo-1584697964479-60a5a1d11307?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+    );
+  }
+  background-color: rgba($color: #000, $alpha: 0.3);
+}
+
+.form-bg {
   min-height: 100vh;
-  background-image: url(https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  @include full-background-image(
+    "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+  );
 }
 
 .form_block {

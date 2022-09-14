@@ -57,7 +57,7 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      <div className="content vh-100">
+      <div className="content">
         <Outlet />
       </div>
       <footer className="footer bg-light">

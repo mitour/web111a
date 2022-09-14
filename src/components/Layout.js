@@ -67,7 +67,10 @@ function Navbar() {
             <br className="d-lg-none" />
             跨平台網頁程式設計與智能聯網(幼獅) 第01期 期末專案
           </h3>
-          <a className="text-reset" href="https://github.com/mitour/web111a">
+          <a
+            className="text-reset social-media"
+            href="https://github.com/mitour/web111a"
+          >
             <span className="d-none d-md-inline-block me-2 align-text-bottom">
               Github@Mitour
             </span>

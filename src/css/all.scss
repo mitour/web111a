@@ -1,90 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Nova+Round&family=Paytone+One&display=swap");
-@import "./mixin";
-.font-notosans {
-  font-family: "Noto Sans TC", sans-serif;
-}
-* {
-  box-sizing: border-box;
-  font-family: "Nova Round", "Noto Sans TC", sans-serif;
-}
+@import "./utils/variables";
+@import "./utils/mixins";
 
-.page-not-found {
-  .text-clip {
-    @include full-background-image(
-      "https://images.unsplash.com/photo-1585895729250-386968e985ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-      bottom center
-    );
-    background-clip: text;
-    color: transparent;
-    h1,
-    h2 {
-      font-family: "Paytone One", cursive;
-    }
-    h1 {
-      font-size: 12vw;
-      @media screen and (max-width: 767px) {
-        font-size: 22vw;
-      }
-    }
-  }
-  img {
-    max-height: 100vh;
-  }
-}
+@import "./base/typography";
+@import "./base/base";
 
-.hero {
-  position: relative;
-  min-height: 70vh;
-  &::before {
-    content: "";
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-    @include full-background-image(
-      "https://images.unsplash.com/photo-1584697964479-60a5a1d11307?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-    );
-  }
-  background-color: rgba($color: #000, $alpha: 0.3);
-}
+@import "./layout/navbar";
+@import "./layout/form";
 
-.form-bg {
-  min-height: 100vh;
-  @include full-background-image(
-    "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-  );
-}
+@import "./components/spinIcons";
 
-.form_block {
-  position: relative;
-  &::before {
-    position: absolute;
-    font-family: "Font Awesome 6 Free";
-    content: "\f007";
-    font-size: 2rem;
-    padding: 1rem;
-    width: 5rem;
-    height: 5rem;
-    background-color: rgba($color: gold, $alpha: 0.8);
-    color: #fff;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-  }
-  width: 400px;
-  background-color: rgba($color: #fff, $alpha: 0.6);
-}
-
-.nav-link {
-  color: #fff;
-  &:hover {
-    color: darken(#fff, 30%);
-  }
-}
-
-@media screen and (min-width: 767px) {
-  main.container {
-    max-width: 60vw;
-  }
-}
+@import "./pages/pageNotFound";
+@import "./pages/home";

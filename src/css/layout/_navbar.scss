@@ -1,0 +1,6 @@
+.nav-link {
+  color: #fff;
+  &:hover {
+    color: darken(#fff, 30%);
+  }
+}

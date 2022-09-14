@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import "../css/components/_spinIcons.scss";
 import animalKingdom from "../images/animal-kingdom.png";
 import cat from "../images/cat.png";
 import chameleon from "../images/chameleon.png";

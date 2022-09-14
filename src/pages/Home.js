@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Headline from "../components/Headline";
 
 function Home() {
   return (
     <>
       <header className="hero text-white d-flex flex-column justify-content-center align-items-center">
-        <h1 className="display-4 font-notosans fw-bold">Welcome to We Learn</h1>
+        <Headline />
         <h2 className="h5 my-4 fw-light">旨在創造高愉悅的學習體驗</h2>
         <Link
           to="/users/register"

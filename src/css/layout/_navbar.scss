@@ -1,6 +1,10 @@
 .nav-link {
+  font-family: "Nova Round", "Noto Sans TC", cursive;
   color: #fff;
   &:hover {
     color: darken(#fff, 30%);
   }
+}
+.footer {
+  font-family: "Nova Round", "Noto Sans TC", cursive;
 }

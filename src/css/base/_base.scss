@@ -1,12 +1,7 @@
 * {
   box-sizing: border-box;
+  font-size: 18px;
 }
 body {
   font-family: "Noto Sans TC", sans-serif;
-}
-
-@media screen and (min-width: 767px) {
-  main.container {
-    max-width: 60vw;
-  }
 }

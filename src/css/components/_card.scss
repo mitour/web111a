@@ -1,0 +1,13 @@
+.card {
+  cursor: pointer;
+  transition: border-color 0.15s ease-in-out;
+  .card-title {
+    transition: color 0.15s ease-in-out;
+  }
+  &:hover {
+    border-color: lighten($color: $primary, $amount: 20);
+    .card-title {
+      color: lighten($color: $primary, $amount: 20);
+    }
+  }
+}

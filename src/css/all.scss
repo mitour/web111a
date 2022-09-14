@@ -10,6 +10,19 @@
 @import "./layout/form";
 
 @import "./components/spinIcons";
+@import "./components/avatar";
+@import "./components/card";
 
 @import "./pages/pageNotFound";
 @import "./pages/home";
+
+.price::before {
+  content: "$";
+}
+
+@media screen and (min-width: 767px) {
+  .plain-text-container {
+    max-width: 60vw;
+    margin: 0 auto;
+  }
+}

@@ -5,6 +5,10 @@
     color: darken(#fff, 30%);
   }
 }
+.navbar-nav .dropdown-toggle::after {
+  display: none;
+}
+
 .footer {
   font-family: "Nova Round", "Noto Sans TC", cursive;
   .social-media {

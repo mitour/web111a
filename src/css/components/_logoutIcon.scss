@@ -1,0 +1,28 @@
+.logout-link {
+  &:hover {
+    i.logout::after {
+      transform: translateX(2px);
+    }
+  }
+}
+i.logout {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  width: 0.5rem;
+  margin-left: 0.5rem;
+  height: 0.9rem;
+  border: 2px solid;
+  border-radius: 10%;
+  border-right: none;
+  &::after {
+    transition: transform 0.15s ease-in-out;
+    position: absolute;
+    right: -0.5rem;
+    top: -4px;
+    font-size: 0.8rem;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f061";
+  }
+}

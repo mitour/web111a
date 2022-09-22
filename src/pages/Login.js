@@ -1,12 +1,14 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Form from "../components/Form";
+import Loading from "../components/Loading";
 import { useAuth } from "../contexts/AuthContext";
 
 function Login() {
+  let [loading, setLoading] = useState(false);
   const { user, setAuth } = useAuth();
   const navigate = useNavigate();
   const {
@@ -16,6 +18,7 @@ function Login() {
   } = useForm();
   const { state } = useLocation();
   const onSubmit = async (data) => {
+    setLoading(true);
     const API = `${window.location.protocol}//${window.location.hostname}:3000/users/login`;
     const options = {
       method: "POST",
@@ -27,6 +30,7 @@ function Login() {
     };
     const response = await fetch(API, options);
     const responseJson = await response.json();
+    setLoading(false);
     if (
       response.status === 400 ||
       response.status === 500 ||
@@ -68,6 +72,7 @@ function Login() {
   }, [user]);
   return (
     <>
+      {loading ? <Loading /> : ""}
       <Form handleSubmit={handleSubmit(onSubmit)} type="Login">
         <div className="mb-3">
           <input

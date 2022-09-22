@@ -1,16 +1,22 @@
 import { Link, Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useState } from "react";
+import Loading from "./Loading";
 
 function Navbar() {
+  let [loading, setLoading] = useState(false);
   const { setAuth, user } = useAuth();
   const logout = async (e) => {
+    setLoading(true);
     e.preventDefault();
     localStorage.removeItem("user");
     setAuth(false);
     window.location.replace("/users/login");
+    setLoading(false);
   };
   return (
     <>
+      {loading ? <Loading /> : ""}
       <nav className="fixed-top navbar p-sm-0 navbar-expand-sm navbar-dark bg-dark bg-opacity-75">
         <div className="container">
           <Link className="navbar-brand" to="/">
@@ -49,7 +55,6 @@ function Navbar() {
               </li>
               {user ? (
                 <>
-                  {console.log("layout ", user)}
                   <li className="nav-item me-3 dropdown">
                     <Link
                       className="dropdown-toggle"

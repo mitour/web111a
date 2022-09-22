@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import Loading from "../components/Loading";
 import { useAuth } from "../contexts/AuthContext";
 
 function Dashboard() {
@@ -19,7 +20,7 @@ function Dashboard() {
           <p>{user.email}</p>
         </>
       ) : (
-        <p>loading</p>
+        <Loading />
       )}
     </>
   );

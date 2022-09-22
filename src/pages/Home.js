@@ -1,19 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Headline from "../components/Headline";
+import { useAuth } from "../contexts/AuthContext";
 
 function Home() {
+  const { user } = useAuth();
   return (
     <>
       <header className="hero text-white d-flex flex-column justify-content-center align-items-center">
         <Headline />
         <h2 className="h5 my-4 fw-light">旨在創造高愉悅的學習體驗</h2>
-        <Link
-          to="/users/register"
-          className="px-3 btn btn-primary rounded-pill"
-        >
-          Register
-        </Link>
+        {user ? (
+          <Link to="/courses" className="px-3 btn btn-primary rounded-pill">
+            所有課程
+          </Link>
+        ) : (
+          <Link
+            to="/users/register"
+            className="px-3 btn btn-primary rounded-pill"
+          >
+            Register
+          </Link>
+        )}
       </header>
       <main className="container">
         <section className="mt-5 plain-text-container">
@@ -42,7 +50,7 @@ function Home() {
           <ul className="list-unstyled row row-cols-1 row-cols-md-3 g-lg-4 g-1">
             <li key="example" className="col">
               <Link to="#" className="card h-100 p-3 text-decoration-none">
-                <div class="d-flex align-items-center">
+                <div className="d-flex align-items-center">
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/3006/3006848.png"
                     className="me-2 avatar rounded-circle img-thumbnail"
@@ -61,7 +69,7 @@ function Home() {
                 />
                 <div className="card-body">
                   <h3 className="h6 card-title">
-                    <span class="badge text-bg-secondary me-1">NEW</span>
+                    <span className="badge text-bg-secondary me-1">NEW</span>
                     complete HTML tutorial
                   </h3>
                   <p className="card-text text-muted fw-light">
@@ -78,7 +86,7 @@ function Home() {
                       to="#"
                       className="card h-100 p-3 text-decoration-none"
                     >
-                      <div class="d-flex align-items-center">
+                      <div className="d-flex align-items-center">
                         <img
                           src="https://cdn-icons-png.flaticon.com/512/3006/3006876.png"
                           className="me-2 avatar rounded-circle img-thumbnail"

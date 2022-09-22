@@ -1,17 +1,19 @@
-import React from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Form from "../components/Form";
+import { useAuth } from "../contexts/AuthContext";
 
 function Login() {
+  const { user, setAuth } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate();
   const { state } = useLocation();
   const onSubmit = async (data) => {
     const API = `${window.location.protocol}//${window.location.hostname}:3000/users/login`;
@@ -52,13 +54,18 @@ function Login() {
         showConfirmButton: false,
         title: responseJson.message,
       });
-      navigate(`/users/${responseJson._id}`, {
-        state: { _id: responseJson._id, email: data.email },
-      });
+      setAuth(true);
       const authorization = response.headers.get("Authorization");
-      localStorage.setItem("user", JSON.stringify({ authorization }));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ id: responseJson._id, authorization })
+      );
+      navigate(`/users/${responseJson._id}`, { replace: true });
     }
   };
+  useEffect(() => {
+    if (user) navigate(`/users/${user._id}`);
+  }, [user]);
   return (
     <>
       <Form handleSubmit={handleSubmit(onSubmit)} type="Login">

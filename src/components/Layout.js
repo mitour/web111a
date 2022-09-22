@@ -1,9 +1,14 @@
-import React from "react";
-import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const { setAuth, user } = useAuth();
+  const logout = async (e) => {
+    e.preventDefault();
+    localStorage.removeItem("user");
+    setAuth(false);
+    window.location.replace("/users/login");
+  };
   return (
     <>
       <nav className="fixed-top navbar p-sm-0 navbar-expand-sm navbar-dark bg-dark bg-opacity-75">
@@ -42,11 +47,12 @@ function Navbar() {
                   About
                 </Link>
               </li>
-              {isLoggedIn ? (
+              {user ? (
                 <>
+                  {console.log("layout ", user)}
                   <li className="nav-item me-3 dropdown">
                     <Link
-                      class="dropdown-toggle"
+                      className="dropdown-toggle"
                       to="#"
                       role="button"
                       data-bs-toggle="dropdown"
@@ -59,15 +65,15 @@ function Navbar() {
                       />
                     </Link>
                     <Link
-                      class="btn btn-primary dropdown-toggle d-block d-sm-none"
+                      className="btn btn-primary dropdown-toggle d-block d-sm-none"
                       role="button"
                       to="#"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      John doe
+                      {user.name}
                     </Link>
-                    <ul class="dropdown-menu dropdown-menu-end text-center text-bg-dark mt-2 p-3">
+                    <ul className="dropdown-menu dropdown-menu-end text-center text-bg-dark mt-2 p-3">
                       <li className="mb-2">
                         <img
                           src="https://cdn-icons-png.flaticon.com/512/3006/3006876.png"
@@ -76,23 +82,27 @@ function Navbar() {
                         />
                       </li>
                       <li>
-                        <h3 className="h5 m-0">John doe</h3>
+                        <h3 className="h5 m-0">{user.name}</h3>
                       </li>
                       <li>
-                        <small className="text-white-50">Student</small>
+                        <small className="text-white-50">{user.role}</small>
                       </li>
                       <li className="mt-2">
-                        <Link class="btn btn-primary" to="#">
+                        <Link
+                          className="btn btn-primary"
+                          to={`/users/${user._id}`}
+                        >
                           View Profile
                         </Link>
                       </li>
                       <li className="mt-2">
                         <Link
                           className="fw-light text-decoration-none text-light logout-link"
+                          onClick={logout}
                           to="/users/login"
                         >
                           Logout
-                          <i class="logout"></i>
+                          <i className="logout" />
                         </Link>
                       </li>
                     </ul>

@@ -48,7 +48,7 @@ function Register() {
         showConfirmButton: false,
         title: responseJson.message,
       });
-      navigate("/users", { state: { email: data.email } });
+      navigate("/users/login", { state: { email: data.email } });
     }
   };
   return (

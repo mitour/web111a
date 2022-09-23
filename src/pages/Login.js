@@ -80,7 +80,7 @@ function Login() {
             name="email"
             placeholder="信箱"
             id="email"
-            value={state?.email}
+            defaultValue={state?.email}
             className="form-control"
             {...register("email", {
               required: { value: true, message: "此欄位必填" },

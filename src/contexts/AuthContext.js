@@ -6,6 +6,7 @@ export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [reloadUser, setReloadUser] = useState(null);
   const [auth, setAuth] = useState(null);
 
   const isAuthenticated = () => {
@@ -35,9 +36,9 @@ const AuthProvider = ({ children }) => {
       }
     };
     isAuth();
-  }, [auth]);
+  }, [auth, reloadUser]);
   return (
-    <AuthContext.Provider value={{ setAuth, auth, user }}>
+    <AuthContext.Provider value={{ setAuth, auth, user, setReloadUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -151,19 +151,28 @@ const updateUser = async (req, res, next) => {
   try {
     await updateValidation(req.body);
   } catch (err) {
-    return res.status(400).send(err.message);
+    return res.status(400).send({ message: err.message });
   }
   try {
     const update = req.body;
     const userId = req.params.userId;
+    if (update?.password) {
+      const user = await User.findById(userId);
+      const { old_password } = update;
+      const validPass = await user.comparePassword(old_password);
+      if (!validPass)
+        return res.status(400).send({ message: "password is wrong." });
+    }
     await User.findByIdAndUpdate(userId, update);
     const user = await User.findById(userId);
     res.status(200).json({
       data: user,
-      message: "User has been updated",
+      message: update?.password
+        ? "密碼已更新，請重新登入"
+        : "User has been updated",
     });
   } catch (err) {
-    return res.status(400).send(err.message);
+    return res.status(400).send({ message: err.message });
   }
 };
 

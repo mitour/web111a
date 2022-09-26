@@ -3,16 +3,22 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
+import BsModal from "../components/Modal";
+import InputPassword from "../components/InputPassword";
 import { useAuth } from "../contexts/AuthContext";
 import Swal from "sweetalert2";
 
 function Dashboard() {
-  const { user, setReloadUser } = useAuth();
-  let [loading, setLoading] = useState(false);
+  const { user, setAuth } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showModalP, setShowModalP] = useState(false);
+  const [cuser, setCuser] = useState(null);
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const {
@@ -21,6 +27,13 @@ function Dashboard() {
     watch,
     formState: { errors: errorsChangePassword },
   } = useForm();
+  const logout = async () => {
+    setLoading(true);
+    localStorage.removeItem("user");
+    setAuth(false);
+    setLoading(false);
+  };
+
   const onSubmit = async (data) => {
     setLoading(true);
     const API = `${window.location.protocol}//${window.location.hostname}:3000/users/${user._id}`;
@@ -64,15 +77,17 @@ function Dashboard() {
         showConfirmButton: false,
         title: responseJson.message,
       });
-      setReloadUser(true);
-      window.location.reload();
+      setShowModal(false);
+      reset();
+      setCuser(responseJson.data.name);
+      if (Object.keys(data).includes("password")) {
+        logout();
+      }
     }
   };
   useEffect(() => {
-    if (!user) {
-      navigate("/users/login");
-    }
-  }, [user]);
+    if (!user) navigate("/users/login");
+  }, [user, cuser, navigate]);
   return (
     <>
       {loading ? <Loading /> : ""}
@@ -92,66 +107,46 @@ function Dashboard() {
                     <div className="d-flex justify-content-between">
                       <div>
                         <small className="text-muted">Full Name</small>
-                        <p>{user.name}</p>
+                        <p>{cuser ? cuser : user.name}</p>
                       </div>
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-link"
-                        data-bs-toggle="modal"
-                        data-bs-target="#changeNameModal"
+                      <BsModal
+                        show={showModal}
+                        setShow={setShowModal}
+                        title="Change name"
                       >
-                        Edit
-                      </button>
-                      <div
-                        className="modal fade"
-                        id="changeNameModal"
-                        tabIndex="-1"
-                        aria-labelledby="changeNameModalLabel"
-                        aria-hidden="true"
-                      >
-                        <div className="modal-dialog modal-dialog-centered">
-                          <div className="modal-content">
-                            <div className="modal-header">
-                              <h5
-                                className="modal-title"
-                                id="changeNameModalLabel"
-                              >
-                                Change Name
-                              </h5>
-                              <button
-                                type="button"
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                              ></button>
-                            </div>
-                            <div className="modal-body">
-                              <form onSubmit={handleSubmit(onSubmit)}>
-                                <div className="mb-3">
-                                  <input
-                                    type="text"
-                                    name="name"
-                                    placeholder="姓名"
-                                    id="name"
-                                    className="form-control"
-                                    {...register("name", { required: true })}
-                                  />
-                                  <span className="form-text text-danger">
-                                    {errors.name?.message}
-                                  </span>
-                                </div>
-                                <div className="d-grid gap-2">
-                                  <input
-                                    type="submit"
-                                    value="Update"
-                                    className="btn btn-primary"
-                                  />
-                                </div>
-                              </form>
-                            </div>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                          <div className="mb-3">
+                            <input
+                              type="text"
+                              name="name"
+                              placeholder="姓名"
+                              id="name"
+                              className="form-control"
+                              autoFocus
+                              {...register("name", {
+                                required: "此欄位必填",
+                                pattern: {
+                                  value: /^[a-zA-Z0-9_]*$/,
+                                  message: "不可特殊字元、空格",
+                                },
+                                validate: (value) =>
+                                  value !== (cuser ? cuser : user.name) ||
+                                  "名字一樣喔",
+                              })}
+                            />
+                            <span className="form-text text-danger">
+                              {errors.name?.message}
+                            </span>
                           </div>
-                        </div>
-                      </div>
+                          <div className="d-grid gap-2">
+                            <input
+                              className="btn btn-primary"
+                              type="submit"
+                              value="更新"
+                            />
+                          </div>
+                        </form>
+                      </BsModal>
                     </div>
                   </li>
                   <li className="list-group-item">
@@ -168,125 +163,79 @@ function Dashboard() {
                         <small className="text-muted">Password</small>
                         <p>********</p>
                       </div>
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-link"
-                        data-bs-toggle="modal"
-                        data-bs-target="#changePasswordModal"
+                      <BsModal
+                        show={showModalP}
+                        setShow={setShowModalP}
+                        title="Change password"
                       >
-                        Edit
-                      </button>
-                      <div
-                        className="modal fade"
-                        id="changePasswordModal"
-                        tabIndex="-1"
-                        aria-labelledby="changePasswordModalLabel"
-                        aria-hidden="true"
-                      >
-                        <div className="modal-dialog modal-dialog-centered">
-                          <div className="modal-content">
-                            <div className="modal-header">
-                              <h5
-                                className="modal-title"
-                                id="changePasswordModalLabel"
-                              >
-                                Change Password
-                              </h5>
-                              <button
-                                type="button"
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                              ></button>
-                            </div>
-                            <div className="modal-body">
-                              <form
-                                onSubmit={handleSubmitChangePassword(onSubmit)}
-                              >
-                                <div className="mb-3">
-                                  <input
-                                    type="password"
-                                    name="old_password"
-                                    placeholder="舊密碼"
-                                    id="old_password"
-                                    className="form-control"
-                                    {...changePassword("old_password", {
-                                      required: {
-                                        value: true,
-                                        message: "此欄位必填",
-                                      },
-                                    })}
-                                  />
-                                  <span className="form-text text-danger">
-                                    {errorsChangePassword.old_password?.message}
-                                  </span>
-                                </div>
-                                <div className="mb-3">
-                                  <input
-                                    type="text"
-                                    name="password"
-                                    placeholder="新密碼"
-                                    id="password"
-                                    className="form-control"
-                                    {...changePassword("password", {
-                                      required: {
-                                        value: true,
-                                        message: "此欄位必填",
-                                      },
-                                      minLength: {
-                                        value: 8,
-                                        message:
-                                          "密碼長度至少應該設定 8 碼以上",
-                                      },
-                                      pattern: {
-                                        value: new RegExp(
-                                          "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9_]{6,}"
-                                        ),
-                                        message:
-                                          "密碼格式不符：至少包含一位大寫英文字母、一位小寫英文字母及一位數字",
-                                      },
-                                    })}
-                                  />
-                                  <span className="form-text text-danger">
-                                    {errorsChangePassword.password?.message}
-                                  </span>
-                                </div>
-                                <div className="mb-3">
-                                  <input
-                                    type="text"
-                                    name="confirm_password"
-                                    placeholder="再次輸入新密碼"
-                                    id="confirm_password"
-                                    className="form-control"
-                                    {...changePassword("confirm_password", {
-                                      required: {
-                                        value: true,
-                                        message: "此欄位必填",
-                                      },
-                                      validate: (value) =>
-                                        value === watch("password") ||
-                                        "兩次密碼不相符",
-                                    })}
-                                  />
-                                  <span className="form-text text-danger">
-                                    {
-                                      errorsChangePassword.confirm_password
-                                        ?.message
-                                    }
-                                  </span>
-                                </div>
-                                <div className="d-grid gap-2">
-                                  <input
-                                    type="submit"
-                                    value="Update"
-                                    className="btn btn-primary"
-                                  />
-                                </div>
-                              </form>
-                            </div>
+                        <form onSubmit={handleSubmitChangePassword(onSubmit)}>
+                          <InputPassword
+                            name="old_password"
+                            placeholder="舊密碼"
+                            id="old_password"
+                            validate={{
+                              ...changePassword("old_password", {
+                                required: {
+                                  value: true,
+                                  message: "此欄位必填",
+                                },
+                              }),
+                            }}
+                            errors={errorsChangePassword.old_password?.message}
+                          />
+                          <InputPassword
+                            name="password"
+                            placeholder="新密碼"
+                            id="password"
+                            validate={{
+                              ...changePassword("password", {
+                                required: {
+                                  value: true,
+                                  message: "此欄位必填",
+                                },
+                                minLength: {
+                                  value: 8,
+                                  message: "密碼長度至少應該設定 8 碼以上",
+                                },
+                                pattern: {
+                                  value: new RegExp(
+                                    "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9_]{6,}"
+                                  ),
+                                  message:
+                                    "密碼格式不符：至少包含一位大寫英文字母、一位小寫英文字母及一位數字",
+                                },
+                              }),
+                            }}
+                            errors={errorsChangePassword.password?.message}
+                          />
+                          <InputPassword
+                            name="confirm_password"
+                            placeholder="再次輸入新密碼"
+                            id="confirm_password"
+                            validate={{
+                              ...changePassword("confirm_password", {
+                                required: {
+                                  value: true,
+                                  message: "此欄位必填",
+                                },
+                                validate: (value) =>
+                                  value === watch("password") ||
+                                  "兩次密碼不相符",
+                              }),
+                            }}
+                            errors={
+                              errorsChangePassword.confirm_password?.message
+                            }
+                          />
+                          <div className="d-grid gap-2">
+                            <input
+                              type="submit"
+                              value="Update"
+                              className="btn btn-primary"
+                            />
                           </div>
-                        </div>
-                      </div>
+                        </form>
+                      </BsModal>
                     </div>
                   </li>
                 </ul>

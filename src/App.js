@@ -2,6 +2,7 @@ import "bootstrap/dist/js/bootstrap.min";
 import "./css/all.scss";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
+import About from "./pages/About";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
           <Route path="/users">
             <Route index element={<Users />} />
             <Route path=":id" element={<Dashboard />} />

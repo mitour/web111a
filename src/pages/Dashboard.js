@@ -91,7 +91,7 @@ function Dashboard() {
   return (
     <>
       {loading ? <Loading /> : ""}
-      <article className="container mt-5">
+      <article className="container">
         <h1 className="h3 py-3 border-2 border-bottom">Profile</h1>
         {user ? (
           <>

@@ -22,6 +22,10 @@
   content: "$";
 }
 
+.content {
+  margin-top: 80px;
+}
+
 @media screen and (min-width: 767px) {
   .plain-text-container {
     max-width: 60vw;

@@ -24,7 +24,7 @@ function Home() {
         )}
       </header>
       <main className="container">
-        <section className="mt-5 plain-text-container">
+        <section className="plain-text-container">
           <h3 className="mt-4">開發商投入教授</h3>
           <p className="lh-lg">
             品種作者指定兩次部隊任何本論壇點這裡下載住房而言新人，工程矛盾，生氣已有我覺得昨日玻璃可憐，只要熟悉傢伙高速這樣指標真實過來只是皮膚，突出更新操作拿出某種中間影音目錄有意比例基礎上本論壇，建議讀者山西夢幻全文始終總是興趣管理員，列表農民，這時四周轉帖通訊。

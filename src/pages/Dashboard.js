@@ -175,24 +175,16 @@ function Dashboard() {
                             id="old_password"
                             validate={{
                               ...changePassword("old_password", {
-                                required: {
-                                  value: true,
-                                  message: "此欄位必填",
-                                },
+                                required: "此欄位必填",
                               }),
                             }}
                             errors={errorsChangePassword.old_password?.message}
                           />
                           <InputPassword
-                            name="password"
                             placeholder="新密碼"
-                            id="password"
                             validate={{
                               ...changePassword("password", {
-                                required: {
-                                  value: true,
-                                  message: "此欄位必填",
-                                },
+                                required: "此欄位必填",
                                 minLength: {
                                   value: 8,
                                   message: "密碼長度至少應該設定 8 碼以上",
@@ -214,10 +206,7 @@ function Dashboard() {
                             id="confirm_password"
                             validate={{
                               ...changePassword("confirm_password", {
-                                required: {
-                                  value: true,
-                                  message: "此欄位必填",
-                                },
+                                required: "此欄位必填",
                                 validate: (value) =>
                                   value === watch("password") ||
                                   "兩次密碼不相符",

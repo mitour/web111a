@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Form from "../components/Form";
+import InputPassword from "../components/InputPassword";
 
 function Register() {
   const {
@@ -61,7 +62,13 @@ function Register() {
             placeholder="姓名"
             id="name"
             className="form-control"
-            {...register("name", { required: "此欄位必填" })}
+            {...register("name", {
+              required: "此欄位必填",
+              pattern: {
+                value: /^[a-zA-Z0-9_]*$/,
+                message: "不可特殊字元、空格",
+              },
+            })}
           />
           <span className="form-text text-danger">{errors.name?.message}</span>
         </div>
@@ -73,7 +80,7 @@ function Register() {
             id="email"
             className="form-control"
             {...register("email", {
-              required: { value: true, message: "此欄位必填" },
+              required: "此欄位必填",
               pattern: {
                 value: new RegExp(/^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g),
                 message: "信箱格式不符",
@@ -82,15 +89,10 @@ function Register() {
           />
           <span className="form-text text-danger">{errors.email?.message}</span>
         </div>
-        <div className="mb-3">
-          <input
-            type="password"
-            name="password"
-            placeholder="密碼"
-            id="password"
-            className="form-control"
-            {...register("password", {
-              required: { value: true, message: "此欄位必填" },
+        <InputPassword
+          validate={{
+            ...register("password", {
+              required: "此欄位必填",
               minLength: {
                 value: 8,
                 message: "密碼長度至少應該設定 8 碼以上",
@@ -102,29 +104,24 @@ function Register() {
                 message:
                   "密碼格式不符：至少包含一位大寫英文字母、一位小寫英文字母及一位數字",
               },
-            })}
-          />
-          <span className="form-text text-danger">
-            {errors.password?.message}
-          </span>
-        </div>
-        <div className="mb-3">
-          <input
-            type="password"
-            name="confirm_password"
-            placeholder="再次輸入密碼"
-            id="confirm_password"
-            className="form-control"
-            {...register("confirm_password", {
-              required: { value: true, message: "此欄位必填" },
+            }),
+          }}
+          errors={errors.password?.message}
+        />
+        <InputPassword
+          name="confirm_password"
+          placeholder="再次輸入密碼"
+          id="confirm_password"
+          validate={{
+            ...register("confirm_password", {
+              required: "此欄位必填",
               validate: (value) =>
                 value === watch("password") || "兩次密碼不相符",
-            })}
-          />
-          <span className="form-text text-danger">
-            {errors.confirm_password?.message}
-          </span>
-        </div>
+            }),
+          }}
+          errors={errors.confirm_password?.message}
+        />
+
         <div className="d-grid gap-2">
           <input type="submit" value="register" className="btn btn-primary" />
           <p>

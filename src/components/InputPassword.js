@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-function InputPassword({ name, placeholder, id, validate, errors }) {
+function InputPassword({
+  name = "password",
+  placeholder = "密碼",
+  id = "password",
+  validate,
+  errors,
+}) {
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow(!show);
   return (

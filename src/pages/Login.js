@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Form from "../components/Form";
 import Loading from "../components/Loading";
+import InputPassword from "../components/InputPassword";
 import { useAuth } from "../contexts/AuthContext";
 
 function Login() {
@@ -83,7 +84,7 @@ function Login() {
             defaultValue={state?.email}
             className="form-control"
             {...register("email", {
-              required: { value: true, message: "此欄位必填" },
+              required: "此欄位必填",
               pattern: {
                 value: new RegExp(/^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g),
                 message: "信箱格式不符",
@@ -92,15 +93,13 @@ function Login() {
           />
           <span className="form-text text-danger">{errors.email?.message}</span>
         </div>
-        <div className="mb-3">
-          <input
-            type="password"
-            name="password"
-            placeholder="密碼"
-            id="password"
-            className="form-control"
-            {...register("password", {
-              required: { value: true, message: "此欄位必填" },
+        <InputPassword
+          name="password"
+          placeholder="密碼"
+          id="password"
+          validate={{
+            ...register("password", {
+              required: "此欄位必填",
               minLength: {
                 value: 8,
                 message: "密碼長度至少應該設定 8 碼以上",
@@ -112,12 +111,10 @@ function Login() {
                 message:
                   "密碼格式不符：至少包含一位大寫英文字母、一位小寫英文字母及一位數字",
               },
-            })}
-          />
-          <span className="form-text text-danger">
-            {errors.password?.message}
-          </span>
-        </div>
+            }),
+          }}
+          errors={errors.password?.message}
+        />
         <div className="d-grid gap-2">
           <input type="submit" value="login" className="btn btn-primary" />
           <p>

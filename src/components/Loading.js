@@ -14,11 +14,12 @@ const LoadingWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10000;
 `;
 
 const Loading = () => {
-  const [color, setColor] = useState("#e5a714");
-  const [size, setSize] = useState(50);
+  const [color, setColor] = useState("#ffcf56");
+  const [size, setSize] = useState(70);
 
   return (
     <LoadingWrapper>

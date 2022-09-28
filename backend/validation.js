@@ -29,7 +29,8 @@ const loginValidation = async (data) => {
       .required()
       .min(6)
       .pattern(new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9_]{6,}"))
-      .message(`email or password is wrong.`),
+      .message(`email or password is wrong.`)
+      .messages({ "string.min": "email or password is wrong." }),
   });
   return await schema.validateAsync(data);
 };

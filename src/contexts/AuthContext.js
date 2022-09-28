@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { getUserData, clearUserData } from "../services/constants";
+import { UserApi } from "../services/api";
 
 const AuthContext = createContext();
 
@@ -6,29 +8,14 @@ export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [reloadUser, setReloadUser] = useState(null);
   const [auth, setAuth] = useState(null);
-
-  const isAuthenticated = () => {
-    const user = localStorage.getItem("user");
-    if (!user) return;
-    return JSON.parse(user);
-  };
 
   useEffect(() => {
     const isAuth = async () => {
-      let cuser = isAuthenticated();
+      if (!auth) clearUserData();
+      const cuser = getUserData();
       if (cuser) {
-        const API = `${window.location.protocol}//${window.location.hostname}:3000/users/${cuser.id}`;
-        const options = {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            authorization: cuser.authorization,
-          },
-        };
-        const response = await fetch(API, options);
+        const response = await UserApi(cuser.id);
         const responseJson = await response.json();
         setUser(responseJson.data);
       } else {
@@ -36,9 +23,9 @@ const AuthProvider = ({ children }) => {
       }
     };
     isAuth();
-  }, [auth, reloadUser]);
+  }, [auth]);
   return (
-    <AuthContext.Provider value={{ setAuth, auth, user, setReloadUser }}>
+    <AuthContext.Provider value={{ setAuth, auth, user }}>
       {children}
     </AuthContext.Provider>
   );

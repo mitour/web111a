@@ -1,22 +1,15 @@
 import { Link, Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { useState } from "react";
-import Loading from "./Loading";
 
 function Navbar() {
-  let [loading, setLoading] = useState(false);
   const { setAuth, user } = useAuth();
-  const logout = async (e) => {
-    setLoading(true);
+  const logout = (e) => {
     e.preventDefault();
-    localStorage.removeItem("user");
     setAuth(false);
     window.location.replace("/users/login");
-    setLoading(false);
   };
   return (
     <>
-      {loading ? <Loading /> : ""}
       <nav className="fixed-top navbar p-sm-0 navbar-expand-sm navbar-dark bg-dark bg-opacity-75">
         <div className="container">
           <Link className="navbar-brand" to="/">

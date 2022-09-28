@@ -5,8 +5,9 @@ import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
 import BsModal from "../components/Modal";
 import InputPassword from "../components/InputPassword";
+import { Alert } from "../components/Swal";
 import { useAuth } from "../contexts/AuthContext";
-import Swal from "sweetalert2";
+import { UpdateApi } from "../services/api";
 
 function Dashboard() {
   const { user, setAuth } = useAuth();
@@ -27,62 +28,28 @@ function Dashboard() {
     watch,
     formState: { errors: errorsChangePassword },
   } = useForm();
-  const logout = async () => {
-    setLoading(true);
-    localStorage.removeItem("user");
-    setAuth(false);
-    setLoading(false);
-  };
 
   const onSubmit = async (data) => {
     setLoading(true);
-    const API = `${window.location.protocol}//${window.location.hostname}:3000/users/${user._id}`;
-    const options = {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        authorization: JSON.parse(localStorage.getItem("user")).authorization,
-      },
-      body: JSON.stringify(data),
-    };
-    const response = await fetch(API, options);
+    const response = await UpdateApi(user._id, data);
     const responseJson = await response.json();
+
+    const { status } = response;
+    const {
+      message,
+      data: { name },
+    } = responseJson;
+
     setLoading(false);
-    if (
-      response.status === 400 ||
-      response.status === 500 ||
-      response.status === 401 ||
-      response.status === 403
-    ) {
-      Swal.fire({
-        toast: true,
-        position: "bottom-end",
-        icon: "error",
-        timer: 5000,
-        timerProgressBar: true,
-        showCloseButton: true,
-        showConfirmButton: false,
-        title: responseJson.message,
-      });
-    }
-    if (response.status === 200) {
-      Swal.fire({
-        toast: true,
-        position: "bottom-end",
-        icon: "success",
-        timer: 5000,
-        timerProgressBar: true,
-        showCloseButton: true,
-        showConfirmButton: false,
-        title: responseJson.message,
-      });
+
+    if (status === 400 || status === 500 || status === 401 || status === 403)
+      Alert("error", message);
+    if (status === 200) {
+      Alert("success", message);
+      if (Object.keys(data).includes("password")) setAuth(false);
       setShowModal(false);
       reset();
-      setCuser(responseJson.data.name);
-      if (Object.keys(data).includes("password")) {
-        logout();
-      }
+      setCuser(name);
     }
   };
   useEffect(() => {

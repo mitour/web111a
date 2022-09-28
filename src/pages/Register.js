@@ -1,12 +1,15 @@
-import React from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
 import Form from "../components/Form";
+import Loading from "../components/Loading";
 import InputPassword from "../components/InputPassword";
+import { Alert, ModalAlert } from "../components/Swal";
+import { RegisterApi } from "../services/api";
 
 function Register() {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -14,47 +17,28 @@ function Register() {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const onSubmit = async (data) => {
-    const API = `${window.location.protocol}//${window.location.hostname}:3000/users/register`;
-    const options = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    const response = await fetch(API, options);
+
+  const fetchRegister = async (data) => {
+    setLoading(true);
+    const response = await RegisterApi(data);
     const responseJson = await response.json();
-    if (response.status === 400) {
-      Swal.fire({
-        toast: true,
-        position: "bottom-end",
-        icon: "error",
-        timer: 5000,
-        timerProgressBar: true,
-        showCloseButton: true,
-        showConfirmButton: false,
-        title: responseJson.message,
-      });
-    }
-    if (response.status === 200) {
-      Swal.fire({
-        toast: true,
-        position: "bottom-end",
-        icon: "success",
-        timer: 5000,
-        timerProgressBar: true,
-        showCloseButton: true,
-        showConfirmButton: false,
-        title: responseJson.message,
-      });
+
+    const { status } = response;
+    const { message } = responseJson;
+
+    setLoading(false);
+
+    if (status === 400) Alert("error", message);
+    if (status === 200) {
+      ModalAlert(message);
       navigate("/users/login", { state: { email: data.email } });
     }
   };
+
   return (
     <>
-      <Form handleSubmit={handleSubmit(onSubmit)} type="Register">
+      {loading ? <Loading /> : ""}
+      <Form handleSubmit={handleSubmit(fetchRegister)} type="Register">
         <div className="mb-3">
           <input
             type="text"
@@ -94,8 +78,8 @@ function Register() {
             ...register("password", {
               required: "此欄位必填",
               minLength: {
-                value: 8,
-                message: "密碼長度至少應該設定 8 碼以上",
+                value: 6,
+                message: "密碼長度至少應該設定 6 碼以上",
               },
               pattern: {
                 value: new RegExp(

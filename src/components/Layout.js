@@ -46,6 +46,15 @@ function Navbar() {
                   About
                 </Link>
               </li>
+              {user?.role === "admin" || user?.role === "supervisor" ? (
+                <li className="nav-item me-3">
+                  <Link className="nav-link px-3" to="/users">
+                    Admin
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
               {user ? (
                 <>
                   <li className="nav-item me-3 dropdown">

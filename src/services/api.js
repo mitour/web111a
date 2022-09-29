@@ -35,6 +35,17 @@ export const UserApi = (id) => {
   });
 };
 
+export const UsersApi = () => {
+  return fetch(api_user, {
+    method: "Get",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: getAuthToken(),
+    },
+  });
+};
+
 export const UpdateApi = (id, data) => {
   return fetch(`${api_user}/${id}`, {
     method: "PUT",

@@ -22,6 +22,26 @@
   content: "$";
 }
 
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.rate {
+  background-image: url(https://raw.githubusercontent.com/hexschool/webLayoutTraining1st/53d3c0b0e4d2885789ac1fcb666e427365a39207/chatTalker_images/icon_star.svg);
+  background-position: center;
+  background-size: 1.5rem 1rem;
+  background-repeat: space;
+  height: 1rem;
+  @for $i from 1 through 5 {
+    &-#{$i} {
+      width: $i + $i * 0.5rem;
+    }
+  }
+}
+
 .content {
   margin-top: 80px;
 }

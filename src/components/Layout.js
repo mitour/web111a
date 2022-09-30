@@ -1,6 +1,8 @@
 import { Link, Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
+import chameleonBless from "../images/avatar/chameleon-bless.png";
+
 function Navbar() {
   const { setAuth, user } = useAuth();
   const logout = (e) => {
@@ -66,8 +68,8 @@ function Navbar() {
                       aria-expanded="false"
                     >
                       <img
-                        src="https://cdn-icons-png.flaticon.com/512/3006/3006876.png"
-                        className="avatar-sm rounded-circle img-thumbnail d-sm-block d-none"
+                        src={chameleonBless}
+                        className="avatar-sm rounded-circle d-sm-block d-none"
                         alt="avatar"
                       />
                     </Link>
@@ -83,8 +85,8 @@ function Navbar() {
                     <ul className="dropdown-menu dropdown-menu-end text-center text-bg-dark mt-2 p-3">
                       <li className="mb-2">
                         <img
-                          src="https://cdn-icons-png.flaticon.com/512/3006/3006876.png"
-                          className="avatar-lg rounded-circle img-thumbnail"
+                          src={chameleonBless}
+                          className="avatar-lg rounded-circle"
                           alt="avatar"
                         />
                       </li>

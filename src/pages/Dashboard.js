@@ -9,6 +9,8 @@ import { Alert } from "../components/Swal";
 import { useAuth } from "../contexts/AuthContext";
 import { UpdateApi } from "../services/api";
 
+import chameleonBless from "../images/avatar/chameleon-bless.png";
+
 function Dashboard() {
   const { user, setAuth } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -65,8 +67,8 @@ function Dashboard() {
             <section className="p-4 my-md-5 my-4 text-bg-light rounded-2 row row-cols-1 row-cols-md-2">
               <aside className="col-lg-4 text-center">
                 <img
-                  src="https://cdn-icons-png.flaticon.com/512/3006/3006876.png"
-                  className="avatar-xl rounded-circle img-thumbnail mb-3"
+                  src={chameleonBless}
+                  className="avatar-xl rounded-circle mb-3"
                   alt="avatar"
                 />
                 <ul className="list-unstyled list-group text-start">

@@ -2,6 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Headline from "../components/Headline";
 import { useAuth } from "../contexts/AuthContext";
+import Swiper from "../components/Swiper";
+import { SwiperSlide } from "swiper/react";
+
+import chameleon from "../images/avatar/chameleon.png";
+import chameleonBless from "../images/avatar/chameleon-bless.png";
+import businessWoman from "../images/business-woman.png";
 
 function Home() {
   const { user } = useAuth();
@@ -44,7 +50,110 @@ function Home() {
             分鐘偉大不斷他就等方面拿出，後悔自動幾乎教材很久超市還在，無論結構大門居然結果細胞國產請求法國，針對配置上去結婚說什麼原來回到男孩緩緩著名互動本次，專業大門部分之類學校註明父親本身。
           </p>
         </section>
-
+        <article className="my-5 row align-items-center">
+          <div className="col-lg-5 text-center">
+            <img
+              src={businessWoman}
+              className="img-fluid"
+              alt="businessWoman"
+            />
+          </div>
+          <div className="col-lg-7">
+            <h2 className="text-center pb-2">Why Choose us?</h2>
+            <p className="text-muted my-md-5">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut
+              dolorum quasi illo? Distinctio expedita commodi, nemo a quam error
+              repellendus sint, fugiat quis numquam eum eveniet sequi aspernatur
+              quaerat tenetur.
+            </p>
+            <ul className="list-unstyled row row-cols-2 g-4 pt-4">
+              <li key="online courses" className="col">
+                <div className="card h-100 p-md-2">
+                  <div className="card-body d-flex align-items-center">
+                    <i className="fa-solid fa-graduation-cap text-primary fs-2 p-md-2" />
+                    <div className="ms-3">
+                      <p className="h3 text-primary">+10k</p>
+                      <h3 className="small text-muted">online courses</h3>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li key="brilliant students" className="col">
+                <div className="card h-100 p-md-2">
+                  <div className="card-body d-flex align-items-center">
+                    <i className="fa-solid fa-user-graduate text-primary fs-2 p-md-2" />
+                    <div className="ms-3">
+                      <p className="h3 text-primary">+40k</p>
+                      <h3 className="small text-muted">brilliant students</h3>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li key="expert tutors" className="col">
+                <div className="card h-100 p-md-2">
+                  <div className="card-body d-flex align-items-center">
+                    <i className="fa-solid fa-chalkboard-user text-primary fs-2 p-md-2" />
+                    <div className="ms-3">
+                      <p className="h3 text-primary">+2k</p>
+                      <h3 className="small text-muted">expert tutors</h3>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li key="job placement" className="col">
+                <div className="card h-100 p-md-2">
+                  <div className="card-body d-flex align-items-center">
+                    <i className="fa-solid fa-suitcase text-primary fs-2 p-md-2" />
+                    <div className="ms-3">
+                      <p className="h3 text-primary">100%</p>
+                      <h3 className="small text-muted">job placement</h3>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </article>
+        <article className="my-5">
+          <h2 className="text-center pb-2">學員評論</h2>
+          <Swiper>
+            {[11, 12, 13, 14, 15].map((item) => {
+              return (
+                <>
+                  <SwiperSlide key={item}>
+                    <div className="card h-100">
+                      <div className="card-body mx-lg-3 my-lg-2 d-flex flex-column">
+                        <p className="card-text multiline-ellipsis">
+                          原來聊天機器人可以這麼有人性！團隊有完整的行銷計畫提供數位整合，讓我們公司的產品用更活潑的方式讓使用者認識。
+                          原來聊天機器人可以這麼有人性！團隊有完整的行銷計畫提供數位整合，讓我們公司的產品用更活潑的方式讓使用者認識。
+                          原來聊天機器人可以這麼有人性！團隊有完整的行銷計畫提供數位整合，讓我們公司的產品用更活潑的方式讓使用者認識。
+                        </p>
+                        <div className="d-flex align-items-center">
+                          <img
+                            src={chameleon}
+                            className="me-2 avatar rounded-circle"
+                            alt="avatar"
+                          />
+                          <div>
+                            <h3 className="card-title h6 fw-bold lh-base">
+                              Lina
+                            </h3>
+                            <span className="rate rate-5 d-inline-block"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="card-footer">
+                        <p className="small text-muted m-0">
+                          對 complete HTML tutorial 的評論
+                        </p>
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                </>
+              );
+            })}
+          </Swiper>
+        </article>
         <article className="my-5">
           <h2 className="text-center pb-2">熱門課程</h2>
           <ul className="list-unstyled row row-cols-1 row-cols-md-3 g-lg-4 g-1">
@@ -52,12 +161,12 @@ function Home() {
               <Link to="#" className="card h-100 p-3 text-decoration-none">
                 <div className="d-flex align-items-center">
                   <img
-                    src="https://cdn-icons-png.flaticon.com/512/3006/3006848.png"
-                    className="me-2 avatar rounded-circle img-thumbnail"
+                    src={chameleon}
+                    className="me-2 avatar rounded-circle"
                     alt="avatar"
                   />
                   <div className="flex-grow-1 d-flex flex-column justify-content-around">
-                    <h3 className="h6">Curly Hair</h3>
+                    <h3 className="h6 fw-bold">Curly Hair</h3>
                     <span className="small text-muted">02-10-2022</span>
                   </div>
                   <span className="text-primary price">1,000</span>
@@ -88,12 +197,12 @@ function Home() {
                     >
                       <div className="d-flex align-items-center">
                         <img
-                          src="https://cdn-icons-png.flaticon.com/512/3006/3006876.png"
-                          className="me-2 avatar rounded-circle img-thumbnail"
+                          src={chameleonBless}
+                          className="me-2 avatar rounded-circle"
                           alt="avatar"
                         />
                         <div className="flex-grow-1 d-flex flex-column justify-content-around">
-                          <h3 className="h6">john deo{item}</h3>
+                          <h3 className="h6 fw-bold">john deo{item}</h3>
                           <span className="small text-muted">21-10-2022</span>
                         </div>
                         <span className="text-primary">FREE</span>

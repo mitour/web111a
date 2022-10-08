@@ -1,34 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Headline from "../components/Headline";
-import { useAuth } from "../contexts/AuthContext";
-import Swiper from "../components/Swiper";
 import { SwiperSlide } from "swiper/react";
-
+import Swiper from "../components/Swiper";
+import Banner from "../components/ParallaxBanner";
 import chameleon from "../images/avatar/chameleon.png";
 import chameleonBless from "../images/avatar/chameleon-bless.png";
 import businessWoman from "../images/business-woman.png";
 
 function Home() {
-  const { user } = useAuth();
   return (
     <>
-      <header className="hero text-white d-flex flex-column justify-content-center align-items-center">
-        <Headline />
-        <h2 className="h5 my-4 fw-light">旨在創造高愉悅的學習體驗</h2>
-        {user ? (
-          <Link to="/courses" className="px-3 btn btn-primary rounded-pill">
-            所有課程
-          </Link>
-        ) : (
-          <Link
-            to="/users/register"
-            className="px-3 btn btn-primary rounded-pill"
-          >
-            Register
-          </Link>
-        )}
-      </header>
+      <Banner />
       <main className="container">
         <section className="plain-text-container">
           <h3 className="mt-4">開發商投入教授</h3>

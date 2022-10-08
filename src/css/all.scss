@@ -52,3 +52,19 @@
     margin: 0 auto;
   }
 }
+
+.moving {
+  animation: moving 3s;
+  animation-iteration-count: infinite;
+}
+@keyframes moving {
+  from {
+    margin-bottom: 0;
+  }
+  50% {
+    margin-bottom: 20px;
+  }
+  to {
+    margin-bottom: 0;
+  }
+}

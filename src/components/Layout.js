@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 import chameleonBless from "../images/avatar/chameleon-bless.png";
-import rocket from "../images/banner/rocket.gif";
+import rocket from "../images/rocket.gif";
 
 function Navbar() {
   const [showTopBtn, setShowTopBtn] = useState(false);

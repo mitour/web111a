@@ -32,7 +32,8 @@ const Stars = () => {
     );
   });
 };
-const Banner = () => {
+
+export const Hero = () => {
   return (
     <>
       <ParallaxBanner
@@ -186,4 +187,17 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export const ParallaxBlock = ({ opacity, children }) => {
+  return (
+    <>
+      <Parallax
+        translateY={[50, 0]}
+        opacity={opacity ? [0, 1] : "none"}
+        shouldAlwaysCompleteAnimation="true"
+        easing="easeOutQuad"
+      >
+        <p className="lh-lg">{children}</p>
+      </Parallax>
+    </>
+  );
+};

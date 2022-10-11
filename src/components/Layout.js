@@ -1,15 +1,27 @@
+import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 import chameleonBless from "../images/avatar/chameleon-bless.png";
+import rocket from "../images/banner/rocket.gif";
 
 function Navbar() {
+  const [showTopBtn, setShowTopBtn] = useState(false);
   const { setAuth, user } = useAuth();
   const logout = (e) => {
     e.preventDefault();
     setAuth(false);
     window.location.replace("/users/login");
   };
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 500) {
+        setShowTopBtn(true);
+      } else {
+        setShowTopBtn(false);
+      }
+    });
+  }, []);
   return (
     <>
       <nav className="fixed-top navbar p-sm-0 navbar-expand-sm navbar-dark bg-dark bg-opacity-75">
@@ -140,6 +152,18 @@ function Navbar() {
       </nav>
       <div className="content">
         <Outlet />
+        <button
+          className="position-fixed border-0 p-1 bg-white rounded-circle shadow to-top"
+          style={{ bottom: `${showTopBtn ? "100px" : "-100px"}` }}
+          onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          }}
+        >
+          <img className="m-2" src={rocket} alt="rocket" />
+        </button>
       </div>
       <footer className="footer bg-light">
         <div className="container py-3 d-flex justify-content-between align-items-center">

@@ -1,0 +1,24 @@
+.to-top {
+  bottom: 100px;
+  right: 50px;
+  z-index: 99999;
+  opacity: 0.5;
+  transition: bottom 0.15s ease-in-out, opacity 0.15s ease-in-out;
+  &:hover {
+    opacity: 1;
+  }
+  img {
+    width: 50px;
+    rotate: -45deg;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .to-top {
+    right: 10px;
+    bottom: 110px;
+    img {
+      width: 30px;
+    }
+  }
+}

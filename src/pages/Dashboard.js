@@ -8,6 +8,7 @@ import InputPassword from "../components/InputPassword";
 import { Alert } from "../components/Swal";
 import { useAuth } from "../contexts/AuthContext";
 import { UpdateApi } from "../services/api";
+import { clearUserData } from "../services/constants";
 
 import chameleonBless from "../images/avatar/chameleon-bless.png";
 
@@ -48,7 +49,10 @@ function Dashboard() {
       Alert("error", message);
     if (status === 200) {
       Alert("success", message);
-      if (Object.keys(data).includes("password")) setAuth(false);
+      if (Object.keys(data).includes("password")) {
+        setAuth(false);
+        clearUserData();
+      }
       setShowModal(false);
       reset();
       setCuser(name);

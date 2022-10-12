@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { clearUserData } from "../services/constants";
 
 import chameleonBless from "../images/avatar/chameleon-bless.png";
 import rocket from "../images/rocket.gif";
 
 function Navbar() {
   const [showTopBtn, setShowTopBtn] = useState(false);
-  const { setAuth, user } = useAuth();
+  const { user, setAuth } = useAuth();
   const logout = (e) => {
     e.preventDefault();
+    clearUserData();
     setAuth(false);
-    window.location.replace("/users/login");
   };
   useEffect(() => {
     window.addEventListener("scroll", () => {

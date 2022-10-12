@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getUserData, clearUserData } from "../services/constants";
+import { getUserData } from "../services/constants";
 import { UserApi } from "../services/api";
 
 const AuthContext = createContext();
@@ -12,7 +12,6 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const isAuth = async () => {
-      if (!auth) clearUserData();
       const cuser = getUserData();
       if (cuser) {
         const response = await UserApi(cuser.id);

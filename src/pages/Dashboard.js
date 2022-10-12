@@ -17,7 +17,6 @@ function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showModalP, setShowModalP] = useState(false);
-  const [cuser, setCuser] = useState(null);
   const navigate = useNavigate();
   const {
     register,
@@ -38,10 +37,7 @@ function Dashboard() {
     const responseJson = await response.json();
 
     const { status } = response;
-    const {
-      message,
-      data: { name },
-    } = responseJson;
+    const { message } = responseJson;
 
     setLoading(false);
 
@@ -49,18 +45,15 @@ function Dashboard() {
       Alert("error", message);
     if (status === 200) {
       Alert("success", message);
-      if (Object.keys(data).includes("password")) {
-        setAuth(false);
-        clearUserData();
-      }
+      if (Object.keys(data).includes("password")) clearUserData();
+      setAuth(false);
       setShowModal(false);
       reset();
-      setCuser(name);
     }
   };
   useEffect(() => {
     if (!user) navigate("/users/login");
-  }, [user, cuser, navigate]);
+  }, [user, navigate]);
   return (
     <>
       {loading ? <Loading /> : ""}
@@ -80,7 +73,7 @@ function Dashboard() {
                     <div className="d-flex justify-content-between">
                       <div>
                         <small className="text-muted">Full Name</small>
-                        <p>{cuser ? cuser : user.name}</p>
+                        <p>{user.name}</p>
                       </div>
                       <BsModal
                         show={showModal}
@@ -103,8 +96,7 @@ function Dashboard() {
                                   message: "不可特殊字元、空格",
                                 },
                                 validate: (value) =>
-                                  value !== (cuser ? cuser : user.name) ||
-                                  "名字一樣喔",
+                                  value !== user.name || "名字一樣喔",
                               })}
                             />
                             <span className="form-text text-danger">

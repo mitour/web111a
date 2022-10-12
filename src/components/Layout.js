@@ -13,6 +13,7 @@ function Navbar() {
     e.preventDefault();
     clearUserData();
     setAuth(false);
+    window.location.replace("/users/login");
   };
   useEffect(() => {
     window.addEventListener("scroll", () => {

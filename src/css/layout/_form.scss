@@ -8,18 +8,32 @@
 
 .form-block {
   position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    @include full-background-image("../../images/rocket.png");
+    width: 6rem;
+    height: 6rem;
+    top: -10px;
+    left: 50%;
+    translate: -50% -50%;
+    animation: shaking 60s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-delay: 60s;
+  }
   &::before {
     position: absolute;
     content: "";
     @include full-background-image("../../images/headline/kitty.png");
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3rem;
+    height: 3rem;
     top: 0;
-    left: 0;
+    left: 50%;
     translate: -50% -50%;
-    animation: floating 3s, circling 300s;
+    animation: floating 3s, circling 60s;
     animation-iteration-count: infinite;
-    animation-timing-function: linear;
+    animation-timing-function: ease-in-out;
   }
   width: 400px;
   max-width: 100vw;

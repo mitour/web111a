@@ -10,24 +10,38 @@
     rotate: 10deg;
   }
 }
+@keyframes shaking {
+  0% {
+    rotate: 5deg;
+  }
+  0.25% {
+    rotate: -5deg;
+  }
+  0.5% {
+    rotate: 5deg;
+  }
+  1% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 0deg;
+  }
+}
 @keyframes circling {
-  from {
-    top: 0;
-    left: 0;
-  }
-  25% {
+  20% {
     top: 0;
     left: 100%;
   }
-  50% {
+  40% {
     top: 100%;
     left: 100%;
   }
-  75% {
+  60% {
     top: 100%;
     left: 0;
   }
-  to {
+  80% {
     top: 0;
+    left: 0;
   }
 }

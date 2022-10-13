@@ -1,5 +1,6 @@
 @import "./utils/variables";
 @import "./utils/mixins";
+@import "./utils/animation";
 
 @import "./vendors/bootstrap";
 
@@ -57,15 +58,4 @@
 .moving {
   animation: moving 3s;
   animation-iteration-count: infinite;
-}
-@keyframes moving {
-  from {
-    margin-bottom: 0;
-  }
-  50% {
-    margin-bottom: 20px;
-  }
-  to {
-    margin-bottom: 0;
-  }
 }

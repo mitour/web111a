@@ -11,7 +11,7 @@ import { LoginApi } from "../services/api";
 
 function Login() {
   const [loading, setLoading] = useState(false);
-  const { user, setAuth } = useAuth();
+  const { user, setUpdateCUser } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -34,7 +34,7 @@ function Login() {
       Alert("error", message);
     if (status === 200) {
       Alert("success", message);
-      setAuth(true);
+      setUpdateCUser(true);
       const authorization = response.headers.get("Authorization");
       localStorage.setItem("user", JSON.stringify({ id: _id, authorization }));
       navigate(`/users/${_id}`, { replace: true });

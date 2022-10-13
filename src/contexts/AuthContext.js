@@ -8,7 +8,7 @@ export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [auth, setAuth] = useState(null);
+  const [updateCUser, setUpdateCUser] = useState(null);
 
   useEffect(() => {
     const isAuth = async () => {
@@ -22,9 +22,9 @@ const AuthProvider = ({ children }) => {
       }
     };
     isAuth();
-  }, [auth]);
+  }, [updateCUser]);
   return (
-    <AuthContext.Provider value={{ setAuth, auth, user }}>
+    <AuthContext.Provider value={{ setUpdateCUser, user }}>
       {children}
     </AuthContext.Provider>
   );

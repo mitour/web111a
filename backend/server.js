@@ -4,8 +4,6 @@ const cors = require("cors");
 require("dotenv").config();
 const helmet = require("helmet");
 const path = require("path");
-const multer = require("multer");
-const upload = multer();
 const authRoute = require("./routes/auth");
 const verify = require("./verifyToken");
 const mongoose = require("mongoose");
@@ -21,7 +19,7 @@ mongoose
   .then(() => console.log("connected to db"))
   .catch((e) => console.log(e));
 
-app.use("/users", upload.array(), verify, authRoute);
+app.use("/users", verify, authRoute);
 
 // serve static files
 app.use(express.static(path.join(__dirname, "public")));

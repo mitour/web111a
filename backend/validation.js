@@ -66,6 +66,7 @@ const updateValidation = async (data) => {
   const schema = Joi.object({
     name: Joi.string().alphanum().max(20),
     email: Joi.string().max(255).email(),
+    avatar: Joi.string(),
     role: Joi.string().valid("admin", "supervisor", "basic"),
   });
   return await schema.validateAsync(data);

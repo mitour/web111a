@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema(
       default: "basic",
       enum: ["basic", "supervisor", "admin"],
     },
+    avatar: {
+      type: String,
+      default: "https://cdn-icons-png.flaticon.com/512/8512/8512512.png",
+    },
   },
   {
     timestamps: {

@@ -8,11 +8,11 @@ import rocket from "../images/rocket.gif";
 
 function Navbar() {
   const [showTopBtn, setShowTopBtn] = useState(false);
-  const { user, setAuth } = useAuth();
+  const { user, setUpdateCUser } = useAuth();
   const logout = (e) => {
     e.preventDefault();
     clearUserData();
-    setAuth(false);
+    setUpdateCUser(true);
     window.location.replace("/users/login");
   };
   useEffect(() => {
@@ -82,9 +82,10 @@ function Navbar() {
                       aria-expanded="false"
                     >
                       <img
-                        src={chameleonBless}
+                        src={user.avatar ? user.avatar : chameleonBless}
                         className="avatar-sm rounded-circle d-sm-block d-none"
                         alt="avatar"
+                        crossOrigin="anonymous"
                       />
                     </Link>
                     <Link
@@ -99,9 +100,10 @@ function Navbar() {
                     <ul className="dropdown-menu dropdown-menu-end text-center text-bg-dark mt-2 p-3">
                       <li className="mb-2">
                         <img
-                          src={chameleonBless}
+                          src={user.avatar ? user.avatar : chameleonBless}
                           className="avatar-lg rounded-circle"
                           alt="avatar"
+                          crossOrigin="anonymous"
                         />
                       </li>
                       <li>

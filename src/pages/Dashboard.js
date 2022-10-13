@@ -2,21 +2,21 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../contexts/AuthContext";
+import { UpdateApi } from "../services/api";
+import { clearUserData } from "../services/constants";
 import Loading from "../components/Loading";
 import BsModal from "../components/Modal";
 import InputPassword from "../components/InputPassword";
 import { Alert } from "../components/Swal";
-import { useAuth } from "../contexts/AuthContext";
-import { UpdateApi } from "../services/api";
-import { clearUserData } from "../services/constants";
-
-import chameleonBless from "../images/avatar/chameleon-bless.png";
+import { AvatarUploader } from "../components/AvatarUploader";
 
 function Dashboard() {
-  const { user, setAuth } = useAuth();
+  const { user, setUpdateCUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showModalP, setShowModalP] = useState(false);
+  const [src, setSrc] = useState();
   const navigate = useNavigate();
   const {
     register,
@@ -46,14 +46,31 @@ function Dashboard() {
     if (status === 200) {
       Alert("success", message);
       if (Object.keys(data).includes("password")) clearUserData();
-      setAuth(false);
+      setUpdateCUser(true);
       setShowModal(false);
       reset();
     }
   };
+  const updateAvatar = async () => {
+    setLoading(true);
+    const response = await UpdateApi(user._id, { avatar: src });
+    const responseJson = await response.json();
+    const { status } = response;
+    const { message } = responseJson;
+
+    setLoading(false);
+
+    if (status === 400 || status === 500 || status === 401 || status === 403)
+      Alert("error", message);
+    if (status === 200) {
+      Alert("success", message);
+      setUpdateCUser(true);
+    }
+  };
   useEffect(() => {
     if (!user) navigate("/users/login");
-  }, [user, navigate]);
+    if (src) updateAvatar();
+  }, [user, navigate, src]);
   return (
     <>
       {loading ? <Loading /> : ""}
@@ -63,11 +80,7 @@ function Dashboard() {
           <>
             <section className="p-4 my-md-5 my-4 text-bg-light rounded-2 row row-cols-1 row-cols-md-2">
               <aside className="col-lg-4 text-center">
-                <img
-                  src={chameleonBless}
-                  className="avatar-xl rounded-circle mb-3"
-                  alt="avatar"
-                />
+                <AvatarUploader defaultSrc={user.avatar} setSrc={setSrc} />
                 <ul className="list-unstyled list-group text-start">
                   <li className="list-group-item">
                     <div className="d-flex justify-content-between">

@@ -18,6 +18,7 @@
     "react-scripts": "5.0.1",
     "react-scroll-parallax": "^3.3.1",
     "react-spinners": "^0.13.4",
+    "react-uploader": "^2.1.0",
     "sass": "^1.54.9",
     "sweetalert2": "^11.4.32",
     "swiper": "^8.4.2",

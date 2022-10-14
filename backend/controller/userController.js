@@ -6,7 +6,7 @@ const {
   updateValidation,
 } = require("../validation");
 const { roles } = require("../roles");
-const nodemailer = require("../nodemailer.config");
+const nodemailer = require("../nodemailer");
 
 const grantAccess = function (action, resource) {
   return async (req, res, next) => {
@@ -79,12 +79,8 @@ const register = async (req, res) => {
   });
   try {
     const savedUser = await user.save();
-    nodemailer.sendConfirmationEmail(
-      savedUser.name,
-      savedUser.email,
-      savedUser.confirmationCode,
-      url
-    );
+    const { name, email, confirmationCode } = savedUser;
+    nodemailer.sendConfirmationEmail(name, email, confirmationCode, url);
     res.status(200).send({
       message: "User was registered successfully! Please check your email",
     });
@@ -206,6 +202,20 @@ const verifyUser = async (req, res, next) => {
   }
 };
 
+const sendConfirmationEmail = async (req, res) => {
+  const url = req.protocol + "://" + req.get("host") + "/users/register";
+  const email = req.params.email;
+  const user = await User.findOne({ email: email });
+  if (!user) return res.status(404).send({ message: "User Not found." });
+  const { name, confirmationCode } = user;
+  try {
+    nodemailer.sendConfirmationEmail(name, email, confirmationCode, url);
+    res.status(200).send({ message: "An email has been sent" });
+  } catch (err) {
+    res.status(500).send({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   grantAccess,
   allowIfLoggedin,
@@ -216,4 +226,5 @@ module.exports = {
   updateUser,
   deleteUser,
   verifyUser,
+  sendConfirmationEmail,
 };

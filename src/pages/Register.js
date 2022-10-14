@@ -30,7 +30,7 @@ function Register() {
 
     if (status === 400) Alert("error", message);
     if (status === 200) {
-      ModalAlert(message);
+      ModalAlert(message, data.email);
       navigate("/users/login", { state: { email: data.email } });
     }
   };

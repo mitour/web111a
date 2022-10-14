@@ -9,11 +9,14 @@ const {
   updateUser,
   deleteUser,
   verifyUser,
+  sendConfirmationEmail,
 } = require("../controller/userController");
 
 router.post("/register", register);
 
 router.get("/register/:confirmationCode", verifyUser);
+
+router.get("/register/resend/:email", sendConfirmationEmail);
 
 router.post("/login", login);
 

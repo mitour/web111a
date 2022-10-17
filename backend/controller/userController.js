@@ -117,7 +117,7 @@ const login = async (req, res) => {
         "Access-Control-Expose-Headers": "Authorization",
         Authorization: `Bearer ${token}`,
       })
-      .send({ _id: user._id.toString(), message: `${user.email} logged in.` });
+      .send({ data: user, message: `${user.email} logged in.` });
   } catch (err) {
     res.status(500).send({ message: "Internal server error" });
   }

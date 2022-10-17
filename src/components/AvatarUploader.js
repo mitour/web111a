@@ -46,12 +46,15 @@ const ButtonWrapper = styled.button`
   }
 `;
 
-export const AvatarUploader = ({ defaultSrc, setSrc }) => (
+export const AvatarUploader = ({ defaultSrc, setCUser }) => (
   <UploadButton
     uploader={uploader}
     options={options}
     onComplete={(files) => {
-      if (files.length !== 0) setSrc(files[0].fileUrl);
+      if (files.length !== 0)
+        setCUser((prevState) => {
+          return { ...prevState, src: files[0].fileUrl };
+        });
     }}
   >
     {({ onClick }) => (

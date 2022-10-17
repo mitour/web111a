@@ -26,7 +26,7 @@ function Navbar() {
   }, []);
   return (
     <>
-      <nav className="fixed-top navbar p-sm-0 navbar-expand-sm navbar-dark bg-dark bg-opacity-75">
+      <nav className="fixed-top navbar p-0 navbar-expand-sm navbar-dark bg-dark bg-opacity-75">
         <div className="container">
           <Link className="navbar-brand" to="/">
             <img
@@ -64,7 +64,7 @@ function Navbar() {
               </li>
               {user?.role === "admin" || user?.role === "supervisor" ? (
                 <li className="nav-item me-3">
-                  <Link className="nav-link px-3" to="/users">
+                  <Link className="nav-link px-3" to="/admin">
                     Admin
                   </Link>
                 </li>

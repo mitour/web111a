@@ -8,6 +8,7 @@ import InputPassword from "../components/InputPassword";
 import { Alert } from "../components/Swal";
 import { useAuth } from "../contexts/AuthContext";
 import { LoginApi } from "../services/api";
+import { getUserData } from "../services/constants";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -26,23 +27,34 @@ function Login() {
     const responseJson = await response.json();
 
     const { status } = response;
-    const { _id, message } = responseJson;
+    const { message } = responseJson;
 
     setLoading(false);
 
     if (status === 400 || status === 500 || status === 401)
       Alert("error", message);
     if (status === 200) {
-      Alert("success", message);
-      setUpdateCUser(true);
+      const { _id, role } = responseJson.data;
       const authorization = response.headers.get("Authorization");
+      Alert("success", message);
       localStorage.setItem("user", JSON.stringify({ id: _id, authorization }));
-      navigate(`/users/${_id}`, { replace: true });
+      setUpdateCUser(true);
+      if (role === "admin" || role === "supervisor") {
+        console.log("admin");
+        navigate("/admin/users");
+      } else {
+        navigate(`/users/${user._id}`, { replace: true });
+      }
     }
   };
 
   useEffect(() => {
-    if (user) navigate(`/users/${user._id}`);
+    if (getUserData) {
+      if (user)
+        user.role === "admin" || user.role === "supervisor"
+          ? navigate("/admin/users", { replace: true })
+          : navigate(`/users/${user._id}`, { replace: true });
+    }
   }, [user]);
 
   return (

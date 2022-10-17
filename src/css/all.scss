@@ -59,3 +59,37 @@
   animation: moving 3s;
   animation-iteration-count: infinite;
 }
+
+.side-bar {
+  width: 90vw;
+  position: absolute;
+  translate: -100% 0;
+  transition: translate 0.15s ease-in-out;
+  &.show {
+    translate: 0 0;
+  }
+}
+
+.admin-main {
+  width: 100vw;
+}
+
+@media (min-width: 768px) {
+  .side-bar {
+    width: 40vw;
+    position: relative;
+    translate: 0 0;
+  }
+  .admin-main {
+    width: 60vw;
+  }
+}
+
+@media (min-width: 992px) {
+  .side-bar {
+    width: 25vw;
+  }
+  .admin-main {
+    width: 75vw;
+  }
+}

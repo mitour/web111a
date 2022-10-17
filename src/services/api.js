@@ -57,3 +57,14 @@ export const UpdateApi = (id, data) => {
     body: JSON.stringify(data),
   });
 };
+
+export const DeleteApi = (id, data) => {
+  return fetch(`${api_user}/${id}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: getAuthToken(),
+    },
+  });
+};

@@ -176,14 +176,14 @@ const deleteUser = async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const user = await User.findOne({ _id: userId });
-    if (!user) return res.status(404).send("User does not exist");
+    if (!user) return res.status(404).send({ message: "User does not exist" });
     await User.findByIdAndDelete(userId);
     res.status(200).json({
       data: null,
       message: "User has been deleted",
     });
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    res.status(500).send({ message: err });
   }
 };
 
